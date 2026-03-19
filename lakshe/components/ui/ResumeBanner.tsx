@@ -2,7 +2,7 @@ import React from 'react'
 
 function ResumeBanner() {
   return (
-    <div className='flex justify-between gap-10 py-4 px-20 font-sans sticky mt-20'>
+    <div className='flex justify-between gap-10 py-4 px-20 font-sans mt-50'>
       <div className='w-1/2'>
         <div className='bg-white font-mono pt-10 px-10 pb-4 shadow-[0_0_75px_rgba(255,255,255,0.4)] transition-transform duration-300 hover:-translate-y-2'>
             <div className='text-center'>
