@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Geist, Geist_Mono, Inter, Bentham } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/ui/Navbar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+});
+
+const bentham = Bentham({
+  weight: "400",    
+  subsets: ["latin"],
+  variable: "--font-bentham",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -30,8 +29,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} antialiased`}
+        className={`${inter.variable} ${bentham.variable} antialiased`}
       >
+        <Navbar/>
         {children}
       </body>
     </html>

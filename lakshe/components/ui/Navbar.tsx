@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Button } from "./button";
 
 const links = [
   { href: "/features", label: "Features" },
@@ -28,7 +29,7 @@ export default function Navbar() {
       </ul>
       <div className="flex gap-7 w-60">
         <Link href='/login'><button className="w-15 h-10 text-white"> Log in </button></Link>
-        <Link href='/sign-up'><button className="bg-emerald-400 w-30 h-10 text-white rounded-sm"> Get Started </button></Link>
+        <Link href='/sign-up'><Button variant={'default'} size={'sm'}>Get Started</Button></Link>
       </div>
     </nav>
     <hr className="border-[oklch(55.4%_0.046_257.417)]" />
