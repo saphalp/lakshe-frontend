@@ -1,9 +1,10 @@
 import React from 'react'
+import SignInForm from '@/components/ui/SignInForm'
 
 function page() {
   return (
-    <div>
-      Under construction
+    <div className=''>
+      <SignInForm/>
     </div>
   )
 }
