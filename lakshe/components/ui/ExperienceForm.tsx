@@ -7,18 +7,40 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "./card"
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemMedia,
+  ItemTitle,
+} from "@/components/ui/item"
+import { X } from "lucide-react"
+import { useFormData } from "@/context/FormContext"
+
+
 
 
 export default function ExperienceForm() {
   const { prevStep } = useStep()
+  const { formData, updateFormData } = useFormData()
+  const [experiences, setExperiences] = useState<ExperiencesEntry[]>(formData.experiences)
 
-  const [form, setForm] = useState({
-    company: "",
-    role: "",
-    startDate: "",
-    endDate: "",
-    description: "",
-  })
+type ExperiencesEntry = {
+  company: string
+  role: string
+  startDate: string
+  endDate: string
+  description: string
+}
+
+const [form, setForm] = useState<ExperiencesEntry>({
+  company: "",
+  role: "",
+  startDate: "",
+  endDate: "",
+  description: "",
+})
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -26,13 +48,48 @@ export default function ExperienceForm() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // TODO: persist data & redirect / show success
-    console.log("All steps complete — submit full form payload here")
+    const updated = [...experiences, form]
+    updateFormData({ experiences: updated })
+    //validation and submit logic
+    console.log(formData)
+  }
+
+  const handleAdd = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const updated = [...experiences, form]
+    setExperiences((prev) => [...prev, form])
+    setForm({ company: "", role: "", startDate: "", endDate: "", description: "" })
+    updateFormData({experiences: updated})
+  }
+
+  const removeExperience = (experience: ExperiencesEntry) => {
+    setExperiences((prev) => prev.filter((s) => s !== experience))
   }
 
   return (
+    <>
+    <div className="flex flex-col gap-4 mb-6">
+    {experiences.map((item, index) => (
+    <Item variant='default' className="bg-card" key={index}>
+        <ItemContent>
+          <ItemTitle>{item.company}</ItemTitle>
+          <ItemDescription>
+            {item.role} - ({item.description}) {item.startDate}-{item.endDate}
+          </ItemDescription>
+        </ItemContent>
+        <ItemActions>
+          <button
+                type="button"
+                onClick={() => removeExperience(item)}
+                className="hover:text-white transition-colors"
+              >
+                <X className="w-6 h-6" />
+            </button>
+        </ItemActions>
+    </Item>
+    ))}
+    </div>
     <Card>
     <CardContent className="text-gray-400">
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
@@ -44,7 +101,6 @@ export default function ExperienceForm() {
           placeholder="e.g. Acme Corp"
           value={form.company}
           onChange={handleChange}
-          required
         />
       </div>
 
@@ -56,7 +112,6 @@ export default function ExperienceForm() {
           placeholder="e.g. Software Engineer"
           value={form.role}
           onChange={handleChange}
-          required
         />
       </div>
 
@@ -69,7 +124,6 @@ export default function ExperienceForm() {
             type="month"
             value={form.startDate}
             onChange={handleChange}
-            required
           />
         </div>
         <div className="flex flex-col gap-1.5 flex-1">
@@ -101,10 +155,14 @@ export default function ExperienceForm() {
         <Button type="button" variant="outline" onClick={prevStep} className="w-30">
           Back
         </Button>
-        <Button type="submit" className="w-30">Finish</Button>
+        <div>
+            <Button onClick={handleAdd} type="button" className="w-30 bg-indigo-700 mr-3">Add another</Button>
+            <Button type="submit" className="w-30">Finish</Button>
+        </div>
       </div>
     </form>
     </CardContent>
     </Card>
+    </>
   )
 }

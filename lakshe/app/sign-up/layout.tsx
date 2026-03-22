@@ -21,7 +21,6 @@ export default function SignUpLayout({ children }: { children: React.ReactNode }
         </div>
 
         <div className="my-10">
-          {/* Stepper reads currentStep from context internally */}
           <Stepper steps={steps} size="sm" />
         </div>
 

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "./card"
-import { Group } from "lucide-react"
+import { Group, X } from "lucide-react"
 import {
   Item,
   ItemActions,
@@ -15,10 +15,15 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@/components/ui/item"
+import { useFormData } from "@/context/FormContext"
+
 
 export default function EducationForm() {
   const { nextStep, prevStep } = useStep()
-  const [educations, setEducations] = useState<EducationEntry[]>([])
+  const { formData, updateFormData } = useFormData()
+  const [educations, setEducations] = useState<EducationEntry[]>(formData.education)
+
+
 
   type EducationEntry = {
     institution: string
@@ -42,6 +47,7 @@ export default function EducationForm() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    updateFormData({education: educations})
     // TODO: validate & persist form data
     nextStep()
   }
@@ -51,11 +57,15 @@ const handleAdd = (e: React.MouseEvent<HTMLButtonElement>) => {
   setForm({ institution: "", degree: "", field: "", startYear: "", endYear: "" })
 }
 
+const removeEducation = (education: EducationEntry) => {
+    setEducations((prev) => prev.filter((s) => s !== education))
+}
+
   return (
     <>
     <div className="flex flex-col gap-4 mb-6">
-    {educations.map((item, key) => (
-    <Item variant='default' className="bg-card">
+    {educations.map((item, index) => (
+    <Item variant='default' className="bg-card" key={index}>
         <ItemContent>
           <ItemTitle>{item.institution}</ItemTitle>
           <ItemDescription>
@@ -63,9 +73,13 @@ const handleAdd = (e: React.MouseEvent<HTMLButtonElement>) => {
           </ItemDescription>
         </ItemContent>
         <ItemActions>
-          <Button variant="outline" size="sm" className="bg-transparent">
-            Remove
-          </Button>
+          <button
+                type="button"
+                onClick={() => removeEducation(item)}
+                className="hover:text-white transition-colors"
+              >
+                <X className="w-6 h-6" />
+        </button>
         </ItemActions>
     </Item>
     ))}

@@ -12,9 +12,13 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useFormData } from "@/context/FormContext"
 
-function LoginForm() {
+
+function SignInForm() {
    const { nextStep } = useStep()
+  const { formData, updateFormData } = useFormData()
+
 
    const handleSubmit = async (e: any) => {
     e.preventDefault()
@@ -36,19 +40,21 @@ function LoginForm() {
                 type="email"
                 placeholder="m@example.com"
                 required
+                onChange={e => updateFormData({ email: e.target.value })}
+                value={formData.email}
               />
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="password" className='text-xs font-bold'>PASSWORD</Label>
               </div>
-              <Input id="password" type="password" required />
+              <Input id="password" type="password" required onChange={e => updateFormData({ password: e.target.value })} value={formData.password}/>
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="password" className='text-xs font-bold'>CONFIRM PASSWORD</Label>
               </div>
-              <Input id="password" type="password" required />
+              <Input id="password" type="password" required/>
             </div>
           </div>       
       </CardContent>
@@ -63,4 +69,4 @@ function LoginForm() {
   )
 }
 
-export default LoginForm
+export default SignInForm

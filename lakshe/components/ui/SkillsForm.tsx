@@ -6,11 +6,16 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { X } from "lucide-react"
+import { useFormData } from "@/context/FormContext"
 
 export default function SkillsForm() {
   const { nextStep, prevStep } = useStep()
-  const [skills, setSkills] = useState<string[]>([])
   const [input, setInput] = useState("")
+  const { formData, updateFormData } = useFormData()
+  const [skills, setSkills] = useState<string[]>(formData.skills)
+    
+  
+
 
   const addSkill = () => {
     const trimmed = input.trim()
@@ -32,6 +37,7 @@ export default function SkillsForm() {
   }
 
   const handleSubmit = (e: React.FormEvent) => {
+    updateFormData({skills: skills})
     e.preventDefault()
     nextStep()
   }
@@ -57,7 +63,7 @@ export default function SkillsForm() {
 
       {skills.length > 0 && (
         <div className="flex flex-wrap gap-2">
-          {skills.map((skill) => (
+          {skills.map((skill:string) => (
             <span
               key={skill}
               className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 text-sm"
