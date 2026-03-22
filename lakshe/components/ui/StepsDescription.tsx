@@ -33,9 +33,9 @@ const steps = [
 
 export default function StepsDescription() {
   return (
-    <div className="my-50 text-white font-sans">
+    <div className="my-50 text-white font-sans px-40">
     <p className="text-4xl font-extrabold text-center mb-25">Your path to success in 4 steps</p>
-    <Stepper steps={steps}/>
+    <Stepper steps={steps} size="md"/>
     </div>
   );
 }

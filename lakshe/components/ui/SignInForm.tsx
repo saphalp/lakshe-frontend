@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from "@/components/ui/button"
+import { useStep } from "@/context/StepContext"
 import {
   Card,
   CardAction,
@@ -13,16 +14,20 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 function LoginForm() {
+   const { nextStep } = useStep()
+
+   const handleSubmit = async (e: any) => {
+    e.preventDefault()
+    nextStep()
+  }
+
   return (
-    <Card className='w-full max-w-md p-6 shadow-[0_0_50px_rgba(5,23,105,0.4)]'>
-      <CardHeader>
-        <CardTitle className='text-2xl text-white text-center font-bold'>Welcome Back</CardTitle>
-        <CardDescription className='text-center'>
-          Enter your credentials below to login to your account
-        </CardDescription>
-      </CardHeader>
+    <Card className='w-full max-w-lg p-6 mx-auto shadow-[0_0_50px_rgba(0,0,0,0.4)]'>
+      {/* <CardHeader>
+        <CardTitle className='text-xl text-white text-center font-bold'>Create an account</CardTitle>
+      </CardHeader> */}
+    <form onSubmit={handleSubmit}>
       <CardContent className='text-gray-400'>
-        <form>
           <div className="flex flex-col gap-6">
             <div className="grid gap-2">
               <Label htmlFor="email" className='text-xs font-bold'>EMAIL</Label>
@@ -36,24 +41,24 @@ function LoginForm() {
             <div className="grid gap-2">
               <div className="flex items-center">
                 <Label htmlFor="password" className='text-xs font-bold'>PASSWORD</Label>
-                <a
-                  href="#"
-                  className="ml-auto inline-block text-xs font-bold underline-offset-4 text-indigo-700"
-                >
-                  FORGOT PASSWORD?
-                </a>
               </div>
               <Input id="password" type="password" required />
             </div>
-          </div>
-        </form>
+            <div className="grid gap-2">
+              <div className="flex items-center">
+                <Label htmlFor="password" className='text-xs font-bold'>CONFIRM PASSWORD</Label>
+              </div>
+              <Input id="password" type="password" required />
+            </div>
+          </div>       
       </CardContent>
       <CardFooter className="flex-col gap-2 bg-transparent">
         <Button type="submit" className="w-full">
-          Login
+          Continue
         </Button>
-        <p className='text-gray-400 text-xs font-bold mt-2'> DONT'T HAVE AN ACCOUNT? <a href="/sign-up" className='text-indigo-700'>CREATE ONE</a></p>
+        <p className='text-gray-400 text-xs font-bold mt-2'> ALREADY HAVE AN ACCOUNT? <a href="/login" className='text-indigo-700'>LOG IN</a></p>
       </CardFooter>
+      </form>
     </Card>
   )
 }

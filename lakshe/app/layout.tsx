@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter, Bentham } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/ui/Navbar";
+import Footer from "@/components/ui/Footer";
 
 
 const inter = Inter({
@@ -31,8 +32,9 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${bentham.variable} antialiased`}
       >
-        <Navbar/>
+        {/* <Navbar/> */}
         {children}
+        <Footer/>
       </body>
     </html>
   );
