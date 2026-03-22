@@ -8,6 +8,8 @@ import StepsDescription from '@/components/ui/StepsDescription'
 import CallToActionCard from '@/components/ui/CallToActionCard'
 import React from 'react'
 import PricingSection from '@/components/ui/PricingSection'
+import { StepProvider } from "@/context/StepContext"
+
 
 function page() {
   return (
@@ -15,7 +17,9 @@ function page() {
     <HeroBanner/>
     <CriticalFeatures/>
     <SecondaryFeatures/>
+    <StepProvider>
     <StepsDescription/>
+    </StepProvider>
     <ResumeBanner/>
     <PricingSection/>
     <FAQ/>
