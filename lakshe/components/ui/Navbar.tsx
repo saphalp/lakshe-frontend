@@ -6,10 +6,10 @@ import { usePathname } from "next/navigation";
 import { Button } from "./button";
 
 const links = [
-  { href: "/features", label: "Features" },
-  { href: "/how-it-works", label: "How it works" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/faq", label: "FAQ" },
+  { href: "#features", label: "Features" },
+  { href: "#how-it-works", label: "How it works" },
+  { href: "#pricing", label: "Pricing" },
+  { href: "#faq", label: "FAQ" },
 ];
 
 export default function Navbar() {
@@ -28,7 +28,7 @@ export default function Navbar() {
         ))}
       </ul>
       <div className="flex gap-7 w-60">
-        <Link href='/login'><button className="w-15 h-10 text-white"> Log in </button></Link>
+        <Link href='/login'><button className="w-15 h-10 text-white cursor-pointer"> Log in </button></Link>
         <Link href='/sign-up'><Button variant={'default'} size={'sm'}>Get Started</Button></Link>
       </div>
     </nav>

@@ -26,7 +26,6 @@ function page() {
     <PricingSection/>
     <FAQ/>
     <CallToActionCard/>
-    <Footer/>
     </>
   )
 }

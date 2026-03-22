@@ -23,7 +23,7 @@ const faq = [
 
 function FAQ() {
   return (
-    <div className='mt-40 font-sans text-white flex flex-col items-center px-40'>
+    <div className='mt-40 font-sans text-white flex flex-col items-center px-40' id='faq'>
         <p className='text-4xl text-center font-extrabold'>Frequently Asked Questions</p>
         <div className='flex flex-col gap-5 mt-10 w-2/3'>
             {faq.map((item, index) => (

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from './button'
+import Link from 'next/link'
 
 function CallToActionCard() {
   return (
@@ -8,7 +9,7 @@ function CallToActionCard() {
         <p className='text-5xl font-extrabold'>Ready to launch your career?</p>
         <p className='text-center text-gray-200 w-1/2'>Join 50,000+ professionals who have already used LaunchReady to find their dream jobs.</p>
         <div className='flex items-center gap-2'>
-            <Button variant={'default'} size={'lg'}> Get Started Now </Button>
+            <Link href='/sign-up'><Button variant={'default'} size={'lg'}> Get Started Now </Button></Link>
             <p>No credit card required.</p>
         </div>
       </div>

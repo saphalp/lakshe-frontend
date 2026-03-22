@@ -3,7 +3,7 @@ import FeatureCard from './FeatureCard'
 
 function CriticalFeatures() {
   return (
-    <div className='mt-15 font-sans px-40'>
+    <div className='mt-15 font-sans px-40' id='features'>
         <div className='text-center text-white'>
             <p className='text-4xl font-extrabold'>Everything you need to level up</p>
             <p className='text-lg mt-3 text-[oklch(55.4%_0.046_257.417)]'>Powerful tools designed to automate the heavy lifting of your career search.</p>

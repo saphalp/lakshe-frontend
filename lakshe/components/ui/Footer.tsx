@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 
 function Footer() {
   return (
@@ -6,7 +7,7 @@ function Footer() {
     <hr className="border-[oklch(55.4%_0.046_257.417)] mb-10" />
     <div className='flex text-white'>
       <div className='flex flex-col gap-6 w-1/3'>
-        <p className='text-2xl font-bold'>Lakshe</p>
+        <Link href="/" className='text-2xl font-bold'>Lakshe</Link>
         <p className='text-gray-500'>AI-powered platform designed to help you navigate the modern job market with precision and speed.</p>
         <div className='flex gap-3'>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 inline stroke-gray-400">

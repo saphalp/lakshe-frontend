@@ -27,7 +27,7 @@ const pricingOptions = [
 function PricingSection() {
   return (
     <div className='font-sans mt-40'>
-    <div className='text-center text-white'>
+    <div className='text-center text-white' id='pricing'>
             <p className='text-4xl font-extrabold'>Simple, transparent pricing</p>
             <p className='text-lg mt-3 text-[oklch(55.4%_0.046_257.417)]'>Affordable plans built to support your career growth without the hassle.</p>
     </div>

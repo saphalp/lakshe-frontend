@@ -94,7 +94,7 @@ const [form, setForm] = useState<ExperiencesEntry>({
     <CardContent className="text-gray-400">
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <div className="flex flex-col gap-1.5">
-        <Label htmlFor="company">COMPANY</Label>
+        <Label htmlFor="company" className='text-xs font-bold'>COMPANY</Label>
         <Input
           id="company"
           name="company"
@@ -105,7 +105,7 @@ const [form, setForm] = useState<ExperiencesEntry>({
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <Label htmlFor="role">ROLE</Label>
+        <Label htmlFor="role" className='text-xs font-bold'>ROLE</Label>
         <Input
           id="role"
           name="role"
@@ -117,7 +117,7 @@ const [form, setForm] = useState<ExperiencesEntry>({
 
       <div className="flex gap-4">
         <div className="flex flex-col gap-1.5 flex-1">
-          <Label htmlFor="startDate">START DATE</Label>
+          <Label htmlFor="startDate" className='text-xs font-bold'>START DATE</Label>
           <Input
             id="startDate"
             name="startDate"
@@ -127,7 +127,7 @@ const [form, setForm] = useState<ExperiencesEntry>({
           />
         </div>
         <div className="flex flex-col gap-1.5 flex-1">
-          <Label htmlFor="endDate">END DATE</Label>
+          <Label htmlFor="endDate" className='text-xs font-bold'>END DATE</Label>
           <Input
             id="endDate"
             name="endDate"
@@ -135,12 +135,13 @@ const [form, setForm] = useState<ExperiencesEntry>({
             value={form.endDate}
             onChange={handleChange}
             placeholder="Leave blank if current"
+            className="color-gray-400"
           />
         </div>
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <Label htmlFor="description">DESCRIPTION</Label>
+        <Label htmlFor="description" className='text-xs font-bold'>DESCRIPTION</Label>
         <Textarea
           id="description"
           name="description"
@@ -152,7 +153,7 @@ const [form, setForm] = useState<ExperiencesEntry>({
       </div>
 
       <div className="flex justify-between mt-2">
-        <Button type="button" variant="outline" onClick={prevStep} className="w-30">
+        <Button type="button" variant="outline" onClick={prevStep} className="w-30 bg-transparent">
           Back
         </Button>
         <div>
