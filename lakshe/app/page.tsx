@@ -9,11 +9,13 @@ import CallToActionCard from '@/components/ui/CallToActionCard'
 import React from 'react'
 import PricingSection from '@/components/ui/PricingSection'
 import { StepProvider } from "@/context/StepContext"
+import Navbar from '@/components/ui/Navbar'
 
 
 function page() {
   return (
     <>
+    <Navbar/>
     <HeroBanner/>
     <CriticalFeatures/>
     <SecondaryFeatures/>

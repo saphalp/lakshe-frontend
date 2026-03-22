@@ -51,7 +51,6 @@ const sizeStyles: Record<
   },
 }
 
-// Each step's logical index (1-based)
 function stepIndex(step: Step, allSteps: Step[]): number {
   return allSteps.indexOf(step) + 1
 }
@@ -67,15 +66,12 @@ function Stepper({ steps, size = "md" }: StepperProps) {
         const isCompleted = logicalIndex < currentStep
         const isActive = logicalIndex === currentStep
         const isPending = logicalIndex > currentStep
-
-        // Connector line after this step (between this and next)
         const connectorCompleted = currentStep > logicalIndex
 
         return (
           <div key={index} className="flex items-start flex-1">
             <div className="flex flex-col items-center w-full">
               <div className="flex items-center w-full">
-                {/* Left connector */}
                 <div
                   className={`flex-1 h-px transition-colors duration-500 ${
                     index === 0
@@ -93,14 +89,14 @@ function Stepper({ steps, size = "md" }: StepperProps) {
                     transition-all duration-500
                     ${
                       isCompleted
-                        ? "border-indigo-400 bg-indigo-500 text-white"          // done
+                        ? "border-indigo-400 bg-indigo-500 text-white"      
                         : isActive && step.isLast
-                        ? "border-emerald-400 bg-emerald-500/20 text-emerald-400" // active last
+                        ? "border-emerald-400 bg-emerald-500/20 text-emerald-400" 
                         : isActive
-                        ? "border-indigo-400 bg-indigo-500/30 text-white"        // active
+                        ? "border-indigo-400 bg-indigo-500/30 text-white"      
                         : step.isLast
-                        ? "border-emerald-800 bg-transparent text-emerald-800"   // pending last
-                        : "border-indigo-800 bg-indigo-900/40 text-slate-500"    // pending
+                        ? "border-emerald-800 bg-transparent text-emerald-800"   
+                        : "border-indigo-800 bg-indigo-900/40 text-slate-500"    
                     }
                   `}
                 >
@@ -113,7 +109,6 @@ function Stepper({ steps, size = "md" }: StepperProps) {
                   )}
                 </div>
 
-                {/* Right connector */}
                 <div
                   className={`flex-1 h-px transition-colors duration-500 ${
                     index === steps.length - 1
@@ -125,7 +120,6 @@ function Stepper({ steps, size = "md" }: StepperProps) {
                 />
               </div>
 
-              {/* Labels */}
               <div className="mt-4 text-center px-2">
                 <p
                   className={`font-semibold ${s.title} transition-colors duration-300 ${
