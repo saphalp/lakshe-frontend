@@ -18,6 +18,7 @@ import {
 import { X } from "lucide-react";
 import { useFormData } from "@/context/FormContext";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 
 type ExperiencesEntry = {
   company: string;
@@ -32,6 +33,8 @@ type Inputs = {
 };
 
 export default function ExperienceForm() {
+  const [status, setStatus] = useState<string>();
+  const supabase = getSupabaseBrowserClient();
   const { formData, updateFormData } = useFormData();
   const { prevStep } = useStep();
   const [experiences, setExperiences] = useState<ExperiencesEntry[]>(
@@ -62,10 +65,45 @@ export default function ExperienceForm() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    // const updated = [...experiences, form];
-    updateFormData({ experiences: data.experiences });
-    console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    if (!formData.email || !formData.password) {
+      setStatus("Missing account credentials. Please go back and try again.");
+      return;
+    }
+
+    const finalExperiences =
+      form.company || form.role
+        ? [...data.experiences, form]
+        : data.experiences;
+
+    // 1. Sign up
+    const { data: authData, error: signUpError } = await supabase.auth.signUp({
+      email: formData.email,
+      password: formData.password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/dashboard`,
+      },
+    });
+
+    if (signUpError || !authData.user) {
+      setStatus(signUpError?.message ?? "Sign up failed.");
+      return;
+    }
+    const { error: insertError } = await (supabase as any)
+      .from("profiles")
+      .insert({
+        id: authData.user.id,
+        email: formData.email,
+        experiences: finalExperiences,
+        education: formData.education,
+      });
+
+    if (insertError) {
+      setStatus(insertError.message);
+      return;
+    }
+
+    setStatus("Please check your inbox for the activation link.");
   };
 
   const handleAdd = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -187,7 +225,7 @@ export default function ExperienceForm() {
                 rows={4}
               />
             </div>
-
+            {status && <p className={`text-sm text-red-400`}>{status}</p>}
             <div className="flex justify-between mt-2">
               <Button
                 type="button"
