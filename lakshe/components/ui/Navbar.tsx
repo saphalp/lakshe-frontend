@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "./button";
+import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
+import { type User } from "@supabase/supabase-js";
 
 const links = [
   { href: "#features", label: "Features" },
@@ -15,24 +17,53 @@ const links = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const [user, setUser] = useState<User>();
+
+  useEffect(() => {
+    const supabase = getSupabaseBrowserClient();
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user);
+    });
+  }, []);
 
   return (
     <>
-    <nav className="flex justify-between py-4 px-20 font-sans sticky items-center text-md">
-      <Link href='/' className="font-bold text-white text-xl w-60"> Lakshe </Link>
-      <ul className="flex gap-10 text-[oklch(55.4%_0.046_257.417)] items-center">
-        {links.map(({ href, label }) => (
-          <li key={href}>
-            <Link href={href}>{label}</Link>
-          </li>
-        ))}
-      </ul>
-      <div className="flex gap-7 w-60">
-        <Link href='/login'><button className="w-15 h-10 text-white cursor-pointer"> Log in </button></Link>
-        <Link href='/sign-up'><Button variant={'default'} size={'sm'}>Get Started</Button></Link>
-      </div>
-    </nav>
-    <hr className="border-[oklch(55.4%_0.046_257.417)]" />
+      <nav className="flex justify-between py-4 px-20 font-sans sticky items-center text-md">
+        <Link href="/" className="font-bold text-white text-xl w-60">
+          {" "}
+          Lakshe{" "}
+        </Link>
+        <ul className="flex gap-10 text-[oklch(55.4%_0.046_257.417)] items-center">
+          {links.map(({ href, label }) => (
+            <li key={href}>
+              <Link href={href}>{label}</Link>
+            </li>
+          ))}
+        </ul>
+        <div className="flex gap-7 w-60">
+          {!user ? (
+            <>
+              <Link href="/login">
+                <button className="w-15 h-10 text-white cursor-pointer">
+                  Log in
+                </button>
+              </Link>
+              <Link href="/sign-up">
+                <Button variant={"default"} size={"sm"} className="w-30">
+                  Get Started
+                </Button>
+              </Link>
+            </>
+          ) : (
+            <Link href="/dashboard">
+              <Button variant={"default"} size={"sm"} className="w-40">
+                View My Account
+              </Button>
+            </Link>
+          )}
+        </div>
+      </nav>
+      <hr className="border-[oklch(55.4%_0.046_257.417)]" />
     </>
   );
 }

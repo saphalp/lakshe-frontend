@@ -76,7 +76,6 @@ export default function ExperienceForm() {
         ? [...data.experiences, form]
         : data.experiences;
 
-    // 1. Sign up
     const { data: authData, error: signUpError } = await supabase.auth.signUp({
       email: formData.email,
       password: formData.password,

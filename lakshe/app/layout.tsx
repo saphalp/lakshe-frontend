@@ -4,14 +4,13 @@ import "./globals.css";
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 
-
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
 });
 
 const bentham = Bentham({
-  weight: "400",    
+  weight: "400",
   subsets: ["latin"],
   variable: "--font-bentham",
   display: "swap",
@@ -30,11 +29,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${bentham.variable} antialiased`}
+        className={`${inter.variable} ${bentham.variable} antialiased font-sans`}
       >
         {/* <Navbar/> */}
         {children}
-        <Footer/>
+        <Footer />
       </body>
     </html>
   );

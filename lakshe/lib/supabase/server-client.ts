@@ -16,7 +16,7 @@ export async function createSupabaseServerClient() {
   const { supabaseUrl, supabaseAnonKey } = getEnvironmentVariables();
   const cookieStore = await cookies();
 
-  return createServerClient(supabaseUrl, supabaseAnonKey {
+  return createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
       getAll() {
         return cookieStore.getAll();
@@ -26,8 +26,8 @@ export async function createSupabaseServerClient() {
           cookiesToSet.forEach(({ name, value, options }) =>
             cookieStore.set(name, value, options),
           );
-        } catch(err) {
-            console.log(err)
+        } catch (err) {
+          console.log(err);
         }
       },
     },
