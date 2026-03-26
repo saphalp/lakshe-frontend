@@ -6,7 +6,7 @@ interface headerProps {
 
 function AppTrackerHeader({ header }: headerProps) {
   return (
-    <div className="">
+    <div className="bg-card p-2 rounded-sm">
       <p className="text-gray-400 text-sm">{header}</p>
     </div>
   );

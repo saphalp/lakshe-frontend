@@ -2,6 +2,9 @@ import GreetingCard from "@/components/dashboard/GreetingCard";
 import LogoutButton from "@/components/ui/LogoutButton";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { redirect } from "next/navigation";
+import React from "react";
+import StatsSection from "@/components/dashboard/StatsSection";
+import ApplicationTracker from "@/components/dashboard/ApplicationTracker";
 
 export default async function Dashboard() {
   const supabase = await createSupabaseServerClient();
@@ -22,11 +25,14 @@ export default async function Dashboard() {
     .single();
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-      <div className="col-span-2">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-40 my-15">
+      <div className="col-span-4 text-white flex flex-col gap-6">
         <GreetingCard />
+        <div>
+          <StatsSection />
+        </div>
+        <ApplicationTracker />
       </div>
-      <div></div>
     </div>
   );
 }

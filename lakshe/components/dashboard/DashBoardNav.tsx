@@ -1,20 +1,19 @@
 "use client";
 import React from "react";
-import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Button } from "../ui/button";
-import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 import { Bell } from "lucide-react";
 import { Settings } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import AvatarControl from "./AvatarControl";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import NotificiationsDropdown from "./NotificiationsDropdown";
 
-const links = [
-  { href: "#features", label: "Features" },
-  { href: "#how-it-works", label: "How it works" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#faq", label: "FAQ" },
-];
 function DashBoardNav() {
   return (
     <>
@@ -23,28 +22,12 @@ function DashBoardNav() {
           {" "}
           Lakshe{" "}
         </Link>
-        <ul className="flex gap-3 items-center">
+        <ul className="flex gap-5 items-end">
           <li>
-            <Button variant="outline">
-              <Bell />
-            </Button>
+            <NotificiationsDropdown />
           </li>
           <li>
-            <Button variant="outline">
-              <Settings />
-            </Button>
-          </li>
-          <li>
-            <div className="flex items-center gap-3">
-              <div>
-                <p className="text-sm text-right font-bold">Saphal Pant</p>
-                <p className="text-sm">saphalpant2003@gmail.com</p>
-              </div>
-              <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </div>
+            <AvatarControl />
           </li>
         </ul>
       </nav>

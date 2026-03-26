@@ -12,6 +12,7 @@ const pricingOptions = [
       "Basic job matching",
       "3 Interview preps per week",
     ],
+    active: true,
   },
   {
     plan: "Pro",
@@ -23,6 +24,7 @@ const pricingOptions = [
       "Advanced job matching",
       "Unlimited Interview preps",
     ],
+    active: false,
   },
 ];
 
@@ -45,6 +47,7 @@ function PricingSection() {
             description={item.description}
             includes={item.includes}
             feature={item.feature}
+            active={item.active}
           />
         ))}
       </div>

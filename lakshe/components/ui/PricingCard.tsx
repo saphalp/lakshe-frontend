@@ -16,6 +16,7 @@ interface PricingCardProps {
   feature: boolean;
   price: String;
   includes: Array<String>;
+  active: boolean;
 }
 
 function PricingCard({
@@ -24,6 +25,7 @@ function PricingCard({
   price,
   includes,
   feature,
+  active,
 }: PricingCardProps) {
   return (
     <Card
@@ -62,8 +64,9 @@ function PricingCard({
         <Button
           type="submit"
           className="w-full bg-indigo-700 hover:bg-indigo-600 h-10"
+          disabled={!active}
         >
-          Get Started
+          {active ? "Get Started" : "Comming Soon"}
         </Button>
       </CardFooter>
     </Card>
