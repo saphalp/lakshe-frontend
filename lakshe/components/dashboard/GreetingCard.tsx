@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "../ui/button";
 import { Pencil, Search } from "lucide-react";
+import Link from "next/link";
 
 function GreetingCard() {
   return (
@@ -20,10 +21,12 @@ function GreetingCard() {
           <Search />
           Find Jobs
         </Button>
-        <Button variant="outline" className="p-5 bg-transparent">
-          <Pencil />
-          Update Profile
-        </Button>
+        <Link href="/profile">
+          <Button variant="outline" className="p-5 bg-transparent">
+            <Pencil />
+            Update Profile
+          </Button>
+        </Link>
       </div>
     </div>
   );

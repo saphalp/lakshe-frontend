@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -12,13 +14,27 @@ import {
   SidebarMenuSkeleton,
 } from "@/components/ui/sidebar";
 import { SidebarProgressChart } from "./SidebarProgressChart";
-import { Briefcase, GraduationCap, User, Wrench } from "lucide-react";
+import {
+  Briefcase,
+  FolderGit2,
+  GraduationCap,
+  User,
+  Wrench,
+} from "lucide-react";
 
-function ProfileSidebar() {
+interface ProfileSidebarProps {
+  onSectionChange: (section: string) => void;
+}
+
+function ProfileSidebar({ onSectionChange }: ProfileSidebarProps) {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    onSectionChange(e.currentTarget.dataset.value ?? "personal-info");
+  };
+
   return (
     <Sidebar
       collapsible="none"
-      className="text-white p-4 border-r border-gray-400"
+      className="text-white py-4 pr-4 border-r border-gray-400"
     >
       <SidebarHeader>
         <SidebarMenu>
@@ -29,21 +45,25 @@ function ProfileSidebar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarMenu className="p-4 gap-4 text-gray-400">
-          <SidebarMenuButton>
+          <SidebarMenuButton data-value="personal-info" onClick={handleClick}>
             <User />
             Personal Info
           </SidebarMenuButton>
-          <SidebarMenuButton>
+          <SidebarMenuButton data-value="experiences" onClick={handleClick}>
             <Briefcase />
             Work Experience
           </SidebarMenuButton>
-          <SidebarMenuButton>
+          <SidebarMenuButton data-value="education" onClick={handleClick}>
             <GraduationCap />
             Education
           </SidebarMenuButton>
-          <SidebarMenuButton>
+          <SidebarMenuButton data-value="skills" onClick={handleClick}>
             <Wrench />
             Skills
+          </SidebarMenuButton>
+          <SidebarMenuButton data-value="projects" onClick={handleClick}>
+            <FolderGit2 />
+            Projects
           </SidebarMenuButton>
         </SidebarMenu>
       </SidebarContent>

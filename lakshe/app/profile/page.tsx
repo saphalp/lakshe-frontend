@@ -1,21 +1,42 @@
-import InfoDisplayCard from "@/components/profile/InfoDisplayCard";
-import SectionHeader from "@/components/profile/SectionHeader";
-import React from "react";
+"use client";
 
-function page() {
+import DashBoardNav from "@/components/dashboard/DashBoardNav";
+import ProfileSidebar from "@/components/profile/ProfileSidebar";
+import ExperienceSection from "@/components/profile/ExperienceSection";
+import EducationSection from "@/components/profile/EducationSection";
+import React, { useState } from "react";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import PersonalInfoSection from "@/components/profile/PersonalInfoSection";
+
+export default function Layout() {
+  const [section, setSection] = useState("personal-info");
+
+  const renderSection = () => {
+    switch (section) {
+      case "personal-info":
+        return <PersonalInfoSection />;
+      case "work-experience":
+        return <ExperienceSection />;
+      case "education":
+        return <EducationSection />;
+      // case "skills":
+      //   return <Skills />;
+      default:
+        return <ExperienceSection />;
+    }
+  };
+
   return (
-    <div>
-      <SectionHeader
-        section="Experience"
-        description="Add your professional work history to stand out to recriters and increase your match score by up to 45%"
-      />
-      <div className="flex flex-col gap-5 my-8">
-        <InfoDisplayCard />
-        <InfoDisplayCard />
-        <InfoDisplayCard />
-      </div>
-    </div>
+    <>
+      <DashBoardNav />
+      <SidebarProvider>
+        <div className="flex w-full px-40">
+          <ProfileSidebar onSectionChange={setSection} />
+          <main className="w-full mx-auto font-sans text-white p-10">
+            {renderSection()}
+          </main>
+        </div>
+      </SidebarProvider>
+    </>
   );
 }
-
-export default page;
