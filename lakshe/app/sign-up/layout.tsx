@@ -1,5 +1,5 @@
 import React from "react"
-import Stepper from "@/components/ui/Stepper"
+import Stepper from "@/components/sign-up/Stepper"
 import { StepProvider } from "@/context/StepContext"
 
 const steps = [

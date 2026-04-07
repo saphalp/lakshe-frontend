@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter, Bentham } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/ui/Navbar";
-import Footer from "@/components/ui/Footer";
+import Navbar from "@/components/landing/Navbar";
+import Footer from "@/components/shared/Footer";
 
 const inter = Inter({
   variable: "--font-inter",

@@ -1,5 +1,5 @@
 import { Trophy } from "lucide-react";
-import Stepper from "./Stepper";
+import Stepper from "../sign-up/Stepper"
 
 const steps = [
   {
@@ -33,9 +33,11 @@ const steps = [
 
 export default function StepsDescription() {
   return (
-    <div className="my-50 text-white font-sans px-40" id="how-it-works">
-    <p className="text-4xl font-extrabold text-center mb-25">Your path to success in 4 steps</p>
-    <Stepper steps={steps} size="md"/>
+    <div className="my-20 lg:my-50 text-white font-sans px-4 md:px-8 lg:px-40 overflow-hidden" id="how-it-works">
+    <p className="text-3xl md:text-4xl font-extrabold text-center mb-10 md:mb-25">Your path to success in 4 steps</p>
+    <div className="overflow-x-auto pb-4">
+      <Stepper steps={steps} size="md"/>
+    </div>
     </div>
   );
 }

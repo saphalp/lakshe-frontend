@@ -2,8 +2,8 @@ import React from 'react'
 
 function SecondaryFeatures() {
   return (
-    <div className='flex text-white px-40 font-sans mt-50 gap-10'>
-      <div className='w-1/2 flex flex-col gap-5'>
+    <div className='flex flex-col lg:flex-row text-white px-4 md:px-8 lg:px-40 font-sans mt-20 lg:mt-50 gap-10'>
+      <div className='w-full lg:w-1/2 flex flex-col gap-5'>
           <p className='text-4xl font-extrabold'>Stop wasting months on ghosted applications.</p>
           <p className='text-lg text-gray-400'>The traditional job search is broken. ATS filters hide great candidates, and recruiters spend 6 seconds on a resume. Lakshe flips the script.</p>
           <div className='flex flex-col gap-3'>
@@ -15,16 +15,16 @@ function SecondaryFeatures() {
             </svg>Apply to 50 targeted roles in 5 minutes with AI</p>
           </div>
       </div>
-      <div className='flex gap-5 items-center'>
+      <div className='flex flex-col sm:flex-row gap-5 items-center w-full lg:w-1/2 justify-center lg:justify-end'>
         <div className='flex flex-col rounded-lg border-1
-        border-gray-400 gap-4 p-10 w-80 bg-card justify-center h-2/3'>  
-          <p className='font-bold text-emerald-400 text-6xl'>85%</p>
-          <p className='text-gray-400'>Faster callback rate compared to traditional methods.</p>
+        border-gray-400 gap-4 p-8 w-full sm:w-1/2 max-w-[320px] lg:w-80 bg-card justify-center h-full sm:h-2/3 lg:h-2/3'>  
+          <p className='font-bold text-emerald-400 text-5xl lg:text-6xl'>85%</p>
+          <p className='text-gray-400 lg:text-base text-sm'>Faster callback rate compared to traditional methods.</p>
         </div>
         <div className='flex flex-col rounded-lg border-1
-        border-gray-400 gap-4 p-10 w-80 bg-card justify-center h-2/3'>  
-          <p className='font-bold text-blue-400 text-6xl'>3.5x</p>
-          <p className='text-gray-400'>Average salary increase for platform users.</p>
+        border-gray-400 gap-4 p-8 w-full sm:w-1/2 max-w-[320px] lg:w-80 bg-card justify-center h-full sm:h-2/3 lg:h-2/3'>  
+          <p className='font-bold text-blue-400 text-5xl lg:text-6xl'>3.5x</p>
+          <p className='text-gray-400 lg:text-base text-sm'>Average salary increase for platform users.</p>
         </div>
       </div>
     </div>

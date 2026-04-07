@@ -1,5 +1,5 @@
 import React from 'react'
-import { FAQCard } from "@/components/ui/FAQCard"
+import { FAQCard } from "@/components/landing/FAQCard"
 
 const faq = [
     {
@@ -23,9 +23,9 @@ const faq = [
 
 function FAQ() {
   return (
-    <div className='mt-40 font-sans text-white flex flex-col items-center px-40' id='faq'>
-        <p className='text-4xl text-center font-extrabold'>Frequently Asked Questions</p>
-        <div className='flex flex-col gap-5 mt-10 w-2/3'>
+    <div className='mt-20 lg:mt-40 font-sans text-white flex flex-col items-center px-4 md:px-8 lg:px-40' id='faq'>
+        <p className='text-3xl md:text-4xl text-center font-extrabold'>Frequently Asked Questions</p>
+        <div className='flex flex-col gap-5 mt-10 w-full md:w-5/6 lg:w-2/3'>
             {faq.map((item, index) => (
                 <FAQCard question={item.question} ans={item.ans} key={index}/>)
             )}

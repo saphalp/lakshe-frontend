@@ -28,10 +28,11 @@ function EducationSection() {
       <SectionHeader
         section="Education"
         description="Add your professional work history to stand out to recriters and increase your match score by up to 45%"
+        buttonText="Add Education"
       />
       <div className="flex flex-col gap-5 my-8">
         {educationList.map((education, index) => (
-          <EducationDisplayCard education={education} />
+          <EducationDisplayCard key={index} education={education} />
         ))}
       </div>
     </>

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Button } from "./button";
+import { Button } from "@/components/ui/button";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 import { useRouter } from "next/navigation";
 

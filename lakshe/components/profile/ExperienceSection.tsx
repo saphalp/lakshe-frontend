@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import InfoDisplayCard from "@/components/profile/ExperienceDisplayCard";
 import SectionHeader from "@/components/profile/SectionHeader";
 
@@ -43,6 +43,7 @@ function ExperienceSection() {
       <SectionHeader
         section="Experience"
         description="Add your professional work history to stand out to recriters and increase your match score by up to 45%"
+        buttonText="Add Experience"
       />
       <div className="flex flex-col gap-5 my-8">
         {experiences.map((experience, index) => (

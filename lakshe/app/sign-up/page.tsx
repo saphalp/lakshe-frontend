@@ -3,10 +3,10 @@
 import React from "react"
 import { useStep } from "@/context/StepContext"
 import { FormProvider } from "@/context/FormContext"
-import SignInForm from "@/components/ui/SignInForm"
-import EducationForm from "@/components/ui/EducationForm"
-import SkillsForm from "@/components/ui/SkillsForm"
-import ExperienceForm from "@/components/ui/ExperienceForm"
+import SignInForm from "@/components/sign-up/SignInForm"
+import EducationForm from "@/components/sign-up/EducationForm"
+import SkillsForm from "@/components/sign-up/SkillsForm"
+import ExperienceForm from "@/components/sign-up/ExperienceForm"
 
 const FORMS: Record<number, React.ReactNode> = {
   1: <SignInForm />,

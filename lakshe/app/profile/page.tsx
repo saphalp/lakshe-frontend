@@ -7,6 +7,7 @@ import EducationSection from "@/components/profile/EducationSection";
 import React, { useState } from "react";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import PersonalInfoSection from "@/components/profile/PersonalInfoSection";
+import ProfileSkillsForm from "@/components/profile/ProfileSkillsForm";
 
 export default function Layout() {
   const [section, setSection] = useState("personal-info");
@@ -19,8 +20,8 @@ export default function Layout() {
         return <ExperienceSection />;
       case "education":
         return <EducationSection />;
-      // case "skills":
-      //   return <Skills />;
+      case "skills":
+        return <ProfileSkillsForm/>;
       default:
         return <ExperienceSection />;
     }

@@ -1,5 +1,5 @@
 import GreetingCard from "@/components/dashboard/GreetingCard";
-import LogoutButton from "@/components/ui/LogoutButton";
+import LogoutButton from "@/components/dashboard/LogoutButton";
 import { createSupabaseServerClient } from "@/lib/supabase/server-client";
 import { redirect } from "next/navigation";
 import React from "react";

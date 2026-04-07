@@ -2,7 +2,7 @@ import React from "react";
 import GreetingCard from "@/components/dashboard/GreetingCard";
 import StatsSection from "@/components/dashboard/StatsSection";
 import ApplicationTracker from "@/components/dashboard/ApplicationTracker";
-import LogoutButton from "@/components/ui/LogoutButton";
+import LogoutButton from "@/components/dashboard/LogoutButton";
 
 function page() {
   return (

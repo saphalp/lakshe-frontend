@@ -30,15 +30,15 @@ const pricingOptions = [
 
 function PricingSection() {
   return (
-    <div className="font-sans mt-40">
+    <div className="font-sans mt-20 lg:mt-40 px-4 md:px-8">
       <div className="text-center text-white" id="pricing">
         <p className="text-4xl font-extrabold">Simple, transparent pricing</p>
-        <p className="text-lg mt-3 text-[oklch(55.4%_0.046_257.417)]">
+        <p className="text-lg mt-3 text-[oklch(55.4%_0.046_257.417)] max-w-xl mx-auto">
           Affordable plans built to support your career growth without the
           hassle.
         </p>
       </div>
-      <div className="flex justify-center gap-10 mt-10">
+      <div className="flex flex-col sm:flex-row justify-center items-center sm:items-stretch gap-10 mt-10">
         {pricingOptions.map((item, index) => (
           <PricingCard
             key={index}
