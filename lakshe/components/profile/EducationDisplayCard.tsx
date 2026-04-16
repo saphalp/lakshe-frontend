@@ -4,9 +4,9 @@ import React from "react";
 interface Education {
   institution: string;
   degree: string;
-  major: string;
-  startDate: string;
-  endDate: string;
+  field: string;
+  startYear: string;
+  endYear: string;
   gpa: Number;
 }
 
@@ -18,10 +18,10 @@ function EducationDisplayCard({ education }: InfoCardProps) {
     <div className="bg-card rounded-lg flex flex-col gap-3 p-5">
       <div className="flex justify-between">
         <div className="flex flex-col gap-1">
-          <p className="text-xl font-bold">{`${education.major} (${education.degree})`}</p>
+          <p className="text-xl font-bold">{`${education.degree} (${education.field})`}</p>
           <p className="text-sm text-primary">{education.institution}</p>
           <p className="text-sm text-gray-400">
-            {`${education.startDate} - ${education.endDate} (GPA: ${education.gpa})`}
+            {`${education.startYear} - ${education.endYear}`}
           </p>
         </div>
         <div className="flex gap-2">

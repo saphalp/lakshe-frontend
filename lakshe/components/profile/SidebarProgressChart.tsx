@@ -42,46 +42,51 @@ export function SidebarProgressChart() {
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[250px]"
+          className="mx-auto aspect-square w-full"
         >
           <RadialBarChart
             data={chartData}
             startAngle={0}
             endAngle={250}
-            outerRadius={90}
-            innerRadius={80}
+            outerRadius="90%"
+            innerRadius="80%"
           >
             <PolarGrid
               gridType="circle"
               radialLines={false}
               stroke="none"
               className="first:fill-muted last:fill-background"
-              polarRadius={[90, 80]}
             />
             <RadialBar dataKey="visitors" background cornerRadius={10} />
             <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
               <Label
                 content={({ viewBox }) => {
                   if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                    const cx = viewBox.cx ?? 0;
+                    const cy = viewBox.cy ?? 0;
+                    const fontSize = Math.round(cx * 0.32);
+                    const subFontSize = Math.round(cx * 0.14);
                     return (
                       <text
-                        x={viewBox.cx}
-                        y={viewBox.cy}
+                        x={cx}
+                        y={cy}
                         textAnchor="middle"
                         dominantBaseline="middle"
-                        className="text-white"
                       >
                         <tspan
-                          x={viewBox.cx}
-                          y={viewBox.cy}
-                          className="fill-white text-4xl font-bold"
+                          x={cx}
+                          y={cy}
+                          fill="white"
+                          fontSize={fontSize}
+                          fontWeight="bold"
                         >
                           {`${chartData[0].visitors.toLocaleString()}%`}
                         </tspan>
                         <tspan
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 24}
-                          className="fill-white"
+                          x={cx}
+                          y={cy + subFontSize * 1.6}
+                          fill="white"
+                          fontSize={subFontSize}
                         >
                           Completed
                         </tspan>

@@ -8,10 +8,36 @@ import { X } from "lucide-react"
 import { useFetchUser } from "@/hooks/useFetchUser"
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client"
 
+const supabase = getSupabaseBrowserClient()
+
 export default function ProfileSkillsForm() {
   const [input, setInput] = useState("")
   const [skills, setSkills] = useState<string[]>([])
-  const {userId, loading} = useFetchUser()
+  const { userId, loading } = useFetchUser()
+
+  useEffect(() => {
+    if (!userId) return
+
+    const fetchUserProfile = async () => {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("skills")
+        .eq("id", userId)
+        .maybeSingle()
+
+      if (error) {
+        console.error("Error fetching data:", error)
+        return
+      }
+
+      if (data?.skills) {
+        setSkills(data.skills)
+      }
+    }
+
+    fetchUserProfile()
+  }, [userId])
+
   const addSkill = () => {
     const trimmed = input.trim()
     if (trimmed && !skills.includes(trimmed)) {
@@ -31,38 +57,27 @@ export default function ProfileSkillsForm() {
     }
   }
 
-  useEffect(() => {
-    if (!userId) return
-  
-    const fetchUserProfile = async () => {
-      const supabase = getSupabaseBrowserClient()
-  
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("skills")
-        .eq("id", userId)
-        .maybeSingle()
-  
-      if (error) {
-        console.error("Error fetching data:", error)
-        return
-      }
-  
-    if (data?.skills) {
-      setSkills(data.skills)
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    const { error } = await supabase
+      .from("profiles")
+      .upsert({ id: userId, skills })
+
+    if (error) {
+      console.log("Error saving skills:", error)
+      return
     }
-    }
-  
-    fetchUserProfile()
-  }, [userId])
+  }
 
-
-
+  if (loading) return <p>Loading...</p>
 
   return (
-    <form className="flex flex-col gap-5">
+    <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
       <div className="flex flex-col gap-3">
-        <Label htmlFor="skill-input" className="text-xs font-bold text-gray-400">ADD SKILLS</Label>
+        <Label htmlFor="skill-input" className="text-xs font-bold text-gray-400">
+          ADD SKILLS
+        </Label>
         <div className="flex gap-2">
           <Input
             id="skill-input"
@@ -80,7 +95,7 @@ export default function ProfileSkillsForm() {
 
       {skills.length > 0 && (
         <div className="flex flex-wrap gap-2">
-          {skills.map((skill:string) => (
+          {skills.map((skill: string) => (
             <span
               key={skill}
               className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 text-sm"
@@ -97,6 +112,10 @@ export default function ProfileSkillsForm() {
           ))}
         </div>
       )}
+
+      <Button type="submit" variant="default" className="w-30">
+        Update
+      </Button>
     </form>
   )
 }

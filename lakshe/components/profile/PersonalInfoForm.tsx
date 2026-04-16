@@ -6,7 +6,7 @@ import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 import { Button } from "../ui/button";
-import { useFetchUser } from "@/hooks/useFetchUser";
+import { useProfileUser } from "@/context/ProfileUserContext";
 
 type Profile = {
   id: string;
@@ -20,7 +20,7 @@ type Profile = {
 };
 
 function PersonalInfoForm() {
-  const { userId, loading } = useFetchUser()
+  const { userId, loading } = useProfileUser()
 
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
@@ -30,6 +30,7 @@ function PersonalInfoForm() {
   const [github, setGithub] = useState("");
   const [headline, setHeadline] = useState("")
   const [status, setStatus] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState(false);
 
 
 
@@ -69,12 +70,12 @@ useEffect(() => {
 
     const supabase = getSupabaseBrowserClient();
 
-    if (!user) {
+    if (!userId) {
       setStatus("User not authenticated");
       return;
     }
 
-    setLoading(true);
+    setIsSaving(true);
     setStatus(null);
 
     const { error } = await supabase
@@ -88,9 +89,9 @@ useEffect(() => {
       linkedin_url: linkedin,
       github_url: github,
     })
-    .eq("id", user.id); 
+    .eq("id", userId);
 
-    setLoading(false);
+    setIsSaving(false);
 
     if (error) {
       setStatus(error.message);
@@ -199,10 +200,10 @@ useEffect(() => {
         </div>
         <Button
           type="submit"
-          disabled={loading}
+          disabled={isSaving}
           className="bg-primary text-white p-2 rounded mt-4 disabled:opacity-50"
         >
-          {loading ? "Saving..." : "Save Changes"}
+          {isSaving ? "Saving..." : "Save Changes"}
         </Button>
       </div>
     </form>

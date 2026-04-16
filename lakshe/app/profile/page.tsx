@@ -8,6 +8,7 @@ import React, { useState } from "react";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import PersonalInfoSection from "@/components/profile/PersonalInfoSection";
 import ProfileSkillsForm from "@/components/profile/ProfileSkillsForm";
+import { ProfileUserProvider } from "@/context/ProfileUserContext";
 
 export default function Layout() {
   const [section, setSection] = useState("personal-info");
@@ -28,7 +29,7 @@ export default function Layout() {
   };
 
   return (
-    <>
+    <ProfileUserProvider>
       <DashBoardNav />
       <SidebarProvider>
         <div className="flex w-full px-40">
@@ -38,6 +39,6 @@ export default function Layout() {
           </main>
         </div>
       </SidebarProvider>
-    </>
+    </ProfileUserProvider>
   );
 }
