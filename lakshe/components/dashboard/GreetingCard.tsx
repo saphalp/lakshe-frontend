@@ -17,10 +17,11 @@ function GreetingCard() {
         </p>
       </div>
       <div className="flex gap-3">
+        <Link href='/explore-jobs'>
         <Button className="p-5">
           <Search />
           Find Jobs
-        </Button>
+        </Button></Link>
         <Link href="/profile">
           <Button variant="outline" className="p-5 bg-transparent">
             <Pencil />

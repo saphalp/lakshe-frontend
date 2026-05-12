@@ -59,10 +59,12 @@ export default function ProfileSkillsForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!userId) return
 
     const { error } = await supabase
       .from("profiles")
-      .upsert({ id: userId, skills })
+      .update({ skills })
+      .eq("id", userId)
 
     if (error) {
       console.log("Error saving skills:", error)

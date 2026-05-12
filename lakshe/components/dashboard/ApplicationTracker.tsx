@@ -2,82 +2,65 @@ import React from "react";
 import AppTrackerHeader from "./AppTrackerHeader";
 import DashboardJobCard from "./DashboardJobCard";
 
-const headers = ["Saved", "Applied", "Interview", "Rejected"];
-const userJobs = [
-  {
-    company: "Google",
-    role: "Software Engineer Intern",
-    status: "Applied",
-    notes: "Applied through careers page. Waiting for response.",
-  },
-  {
-    company: "Microsoft",
-    role: "Cloud Engineer Intern",
-    status: "Interview",
-    notes: "Completed first round. Preparing for technical interview.",
-  },
-  {
-    company: "Amazon",
-    role: "SDE Intern",
-    status: "Rejected",
-    notes: "Rejected after OA. Need to improve DSA.",
-  },
-  {
-    company: "Meta",
-    role: "Frontend Engineer Intern",
-    status: "Rejected",
-    notes: "Received offer. Deadline in 2 weeks.",
-  },
-  {
-    company: "Netflix",
-    role: "Backend Engineer Intern",
-    status: "Saved",
-    notes: "Referred by a friend.",
-  },
-  {
-    company: "Tesla",
-    role: "Software Engineer",
-    status: "Interview",
-    notes: "Phone screen scheduled next week.",
-  },
-  {
-    company: "Apple",
-    role: "iOS Developer Intern",
-    status: "Applied",
-    notes: "Customized resume for this role.",
-  },
-  {
-    company: "Stripe",
-    role: "Full Stack Engineer Intern",
-    status: "Offered",
-    notes: "Offer received, evaluating compensation.",
-  },
+type JobListing = {
+  job_title: string | null;
+  company: string | null;
+  location: string | null;
+  role_type: string | null;
+};
+
+type UserJob = {
+  id: number;
+  status: string;
+  job_id: number;
+  notes: string | null;
+  jobs_listings: JobListing | null;
+};
+
+interface ApplicationTrackerProps {
+  userJobs: UserJob[];
+}
+
+const COLUMNS: { label: string; status: string }[] = [
+  { label: "Saved", status: "saved" },
+  { label: "Applied", status: "applied" },
+  { label: "Interview", status: "interview" },
+  { label: "Rejected", status: "rejected" },
+  { label: "Offer", status: "offer" },
 ];
 
-function ApplicationTracker() {
+function ApplicationTracker({ userJobs }: ApplicationTrackerProps) {
   return (
     <div>
       <p className="text-xl font-bold">Application Tracker</p>
 
       <div className="flex gap-4 my-5">
-        {headers.map((header, index) => (
-          <div key={index} className="flex flex-col gap-3 w-full">
-            <AppTrackerHeader header={header} />
-            <div className="flex flex-col gap-3">
-              {userJobs
-                .filter((job) => job.status === header)
-                .map((job, index) => (
-                  <DashboardJobCard
-                    key={index}
-                    company={job.company}
-                    notes={job.notes}
-                    role={job.role}
-                    status={job.status}
-                  />
-                ))}
+        {COLUMNS.map(({ label, status }) => {
+          const jobs = userJobs.filter((j) => j.status === status);
+          return (
+            <div key={status} className="flex flex-col gap-3 w-full">
+              <AppTrackerHeader header={`${label} (${jobs.length})`} />
+              <div className="flex flex-col gap-3">
+                {jobs.length === 0 ? (
+                  <p className="text-xs text-gray-600 px-2 pt-1">No jobs yet</p>
+                ) : (
+                  jobs.map((job) => (
+                    <DashboardJobCard
+                      key={job.id}
+                      userJobId={job.id}
+                      company={job.jobs_listings?.company ?? "Unknown"}
+                      role={job.jobs_listings?.job_title ?? "Unknown Role"}
+                      location={job.jobs_listings?.location ?? ""}
+                      roleType={job.jobs_listings?.role_type ?? ""}
+                      status={job.status}
+                      notes={job.notes ?? null}
+                    />
+                  ))
+                )}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

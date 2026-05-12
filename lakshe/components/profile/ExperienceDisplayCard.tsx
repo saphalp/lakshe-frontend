@@ -11,8 +11,10 @@ interface Experience {
 
 interface InfoCardProps {
   experience: Experience;
+  onEdit: () => void;
+  onDelete: () => void;
 }
-function InfoDisplayCard({ experience }: InfoCardProps) {
+function InfoDisplayCard({ experience, onEdit, onDelete }: InfoCardProps) {
   return (
     <div className="bg-card rounded-lg flex flex-col gap-3 p-5">
       <div className="flex justify-between">
@@ -24,11 +26,15 @@ function InfoDisplayCard({ experience }: InfoCardProps) {
           </p>
         </div>
         <div className="flex gap-2">
-          <Pencil />
-          <Trash />
+          <button type="button" onClick={onEdit} className="hover:text-white transition-colors">
+            <Pencil className="w-4 h-4" />
+          </button>
+          <button type="button" onClick={onDelete} className="hover:text-red-400 transition-colors">
+            <Trash className="w-4 h-4" />
+          </button>
         </div>
       </div>
-      <div className="py-2 bg-">
+      <div className="py-2">
         <p>{experience.description}</p>
       </div>
     </div>

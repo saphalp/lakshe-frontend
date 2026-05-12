@@ -7,13 +7,15 @@ interface Education {
   field: string;
   startYear: string;
   endYear: string;
-  gpa: Number;
+  gpa?: Number;
 }
 
 interface InfoCardProps {
   education: Education;
+  onEdit: () => void;
+  onDelete: () => void;
 }
-function EducationDisplayCard({ education }: InfoCardProps) {
+function EducationDisplayCard({ education, onEdit, onDelete }: InfoCardProps) {
   return (
     <div className="bg-card rounded-lg flex flex-col gap-3 p-5">
       <div className="flex justify-between">
@@ -25,8 +27,12 @@ function EducationDisplayCard({ education }: InfoCardProps) {
           </p>
         </div>
         <div className="flex gap-2">
-          <Pencil />
-          <Trash />
+          <button type="button" onClick={onEdit} className="hover:text-white transition-colors">
+            <Pencil className="w-4 h-4" />
+          </button>
+          <button type="button" onClick={onDelete} className="hover:text-red-400 transition-colors">
+            <Trash className="w-4 h-4" />
+          </button>
         </div>
       </div>
     </div>

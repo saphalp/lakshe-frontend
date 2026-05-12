@@ -12,9 +12,9 @@ function HeroBanner() {
         <p className='text-lg text-[oklch(55.4%_0.046_257.417)] text-center w-full max-w-2xl px-4'>Accelerate your career with AI-powered resume building, interview
         prep, and personalized job matching that skips the noise and gets
         results.</p>
-        <div className='flex flex-col sm:flex-row gap-5 w-full sm:w-auto px-4 sm:px-0 mt-4'>
-            <Button variant={'default'} size={'lg'} className="w-full sm:w-auto">Get Started</Button>
-            <Button variant={'outline'} size={'lg'} className="w-full sm:w-auto">Watch Demo</Button>
+        <div className='flex flex-col sm:flex-row gap-5 mt-4'>
+            <Button variant={'default'} size={'lg'} className="px-10">Get Started</Button>
+            <Button variant={'outline'} size={'lg'} className="px-10">Watch Demo</Button>
         </div>
     </div>
   )

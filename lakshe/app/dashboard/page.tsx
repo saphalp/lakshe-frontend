@@ -21,8 +21,15 @@ export default async function Dashboard() {
   const { data: profile } = await supabase
     .from("profiles")
     .select("*")
-    .eq("user_id", user.id)
+    .eq("id", user.id)
     .single();
+
+  const { data: userJobs } = profile
+    ? await supabase
+        .from("user_jobs")
+        .select("id, status, job_id, notes, jobs_listings(job_title, company, location, role_type)")
+        .eq("profile_id", profile.id)
+    : { data: [] };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-40 my-15">
@@ -31,7 +38,7 @@ export default async function Dashboard() {
         <div>
           <StatsSection />
         </div>
-        <ApplicationTracker />
+        <ApplicationTracker userJobs={userJobs ?? []} />
       </div>
     </div>
   );
