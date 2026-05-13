@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent } from "./card";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Item,
   ItemActions,
@@ -19,6 +19,7 @@ import { X } from "lucide-react";
 import { useFormData } from "@/context/FormContext";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
+import { useRouter } from "next/navigation";
 
 type ExperiencesEntry = {
   company: string;
@@ -37,6 +38,7 @@ export default function ExperienceForm() {
   const supabase = getSupabaseBrowserClient();
   const { formData, updateFormData } = useFormData();
   const { prevStep } = useStep();
+  const router = useRouter();
   const [experiences, setExperiences] = useState<ExperiencesEntry[]>(
     formData.experiences,
   );
@@ -102,7 +104,7 @@ export default function ExperienceForm() {
       return;
     }
 
-    setStatus("Please check your inbox for the activation link.");
+    router.push(`/verify-email?email=${encodeURIComponent(formData.email ?? "")}`);
   };
 
   const handleAdd = (e: React.MouseEvent<HTMLButtonElement>) => {
