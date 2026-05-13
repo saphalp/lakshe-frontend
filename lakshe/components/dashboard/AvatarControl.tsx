@@ -38,7 +38,7 @@ function AvatarControl() {
         <DropdownMenuContent className="w-40" align="start">
           <DropdownMenuGroup>
             <DropdownMenuLabel>Your Account</DropdownMenuLabel>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={()=>router.push('/dashboard')}>
               <User />
               Profile
             </DropdownMenuItem>

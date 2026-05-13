@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin, DollarSign, Building2, Users, Globe, FileText, Bookmark } from "lucide-react";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
+import { useRouter } from "next/navigation";
 
 export interface Job {
   id: string;
@@ -41,6 +42,7 @@ function ExploreJobCard({ job, profileId }: ExploreJobCardProps) {
   const formattedSalary = formatSalary(job.salary);
   const [saved, setSaved] = useState(false);
   const [saving, setSaving] = useState(false);
+  const router = useRouter();
 
   const handleBookmark = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -140,7 +142,12 @@ function ExploreJobCard({ job, profileId }: ExploreJobCardProps) {
           size="default"
           variant="outline"
           className="text-xs h-8 px-3 border-gray-600 text-gray-300 bg-transparent hover:bg-gray-800 hover:text-white whitespace-nowrap"
-          onClick={(e) => e.stopPropagation()}
+          onClick={(e) => {
+            e.stopPropagation();
+            router.push(
+              `/resume-builder?jobId=${job.id}&jobTitle=${encodeURIComponent(job.jobTitle)}&company=${encodeURIComponent(job.company)}`
+            );
+          }}
         >
           <FileText size={12} className="mr-1.5" />
           Generate Resume
