@@ -57,7 +57,7 @@ function ExperienceSection() {
     const supabase = getSupabaseBrowserClient();
     const { error } = await supabase
       .from("profiles")
-      .update({ experiences: updated })
+      .update({ experiences: updated } as any)
       .eq("id", userId);
     if (!error) setExperiences(updated);
   };

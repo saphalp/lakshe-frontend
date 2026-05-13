@@ -28,7 +28,7 @@ export function NotesModal({ userJobId, initialNotes, open, onOpenChange }: Note
   const handleSave = async () => {
     setSaving(true);
     const supabase = getSupabaseBrowserClient();
-    await supabase.from("user_jobs").update({ notes }).eq("id", userJobId);
+    await supabase.from("user_jobs").update({ notes } as any).eq("id", userJobId);
     setSaving(false);
     onOpenChange(false);
     router.refresh();

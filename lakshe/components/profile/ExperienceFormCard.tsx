@@ -66,7 +66,7 @@ function ExperienceFormCard({
     const supabase = getSupabaseBrowserClient();
     const { error: updateError } = await supabase
       .from("profiles")
-      .update({ experiences: updated })
+      .update({ experiences: updated } as any)
       .eq("id", userId);
 
     setSaving(false);

@@ -57,7 +57,7 @@ function EducationSection() {
     const supabase = getSupabaseBrowserClient();
     const { error } = await supabase
       .from("profiles")
-      .update({ education: updated })
+      .update({ education: updated } as any)
       .eq("id", userId);
     if (!error) setEducations(updated);
   };

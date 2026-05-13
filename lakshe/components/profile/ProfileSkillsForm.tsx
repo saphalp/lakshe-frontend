@@ -63,7 +63,7 @@ export default function ProfileSkillsForm() {
 
     const { error } = await supabase
       .from("profiles")
-      .update({ skills })
+      .update({ skills } as any)
       .eq("id", userId)
 
     if (error) {

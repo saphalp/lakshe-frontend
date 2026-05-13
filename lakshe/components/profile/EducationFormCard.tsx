@@ -63,7 +63,7 @@ function EducationFormCard({
     const supabase = getSupabaseBrowserClient();
     const { error: updateError } = await supabase
       .from("profiles")
-      .update({ education: updated })
+      .update({ education: updated } as any)
       .eq("id", userId);
 
     setSaving(false);

@@ -3,11 +3,9 @@
 import { createBrowserClient } from "@supabase/ssr";
 import { SupabaseClient } from "@supabase/supabase-js";
 
-type SupabaseSchema = Record<string, never>;
+let client: SupabaseClient | null = null;
 
-let client: SupabaseClient<SupabaseSchema> | null = null;
-
-export function getSupabaseBrowserClient(): SupabaseClient<SupabaseSchema> {
+export function getSupabaseBrowserClient(): SupabaseClient {
   if (client) {
     return client;
   }
@@ -17,6 +15,6 @@ export function getSupabaseBrowserClient(): SupabaseClient<SupabaseSchema> {
   if (!supabaseUrl || !supabaseAnonKey) {
     throw new Error("Missing credentials for Supabase connection!");
   }
-  client = createBrowserClient<SupabaseSchema>(supabaseUrl, supabaseAnonKey);
+  client = createBrowserClient(supabaseUrl, supabaseAnonKey);
   return client;
 }
