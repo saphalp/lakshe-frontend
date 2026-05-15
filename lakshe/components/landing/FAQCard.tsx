@@ -1,39 +1,44 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Button } from "@/components/ui/button"
+import * as React from "react";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible"
-import { ChevronsUpDown } from "lucide-react"
+} from "@/components/ui/collapsible";
+import { ChevronDown } from "lucide-react";
 
 interface FAQProps {
-    question : String,
-    ans : String
+  question: string;
+  ans: string;
 }
 
-export function FAQCard({question, ans} : FAQProps) {
-  const [isOpen, setIsOpen] = React.useState(false)
+export function FAQCard({ question, ans }: FAQProps) {
+  const [isOpen, setIsOpen] = React.useState(false);
 
   return (
     <Collapsible
       open={isOpen}
       onOpenChange={setIsOpen}
-      className="flex flex-col gap-2 rounded-lg bg-card p-6 font-sans"
+      className="rounded-xl bg-card border border-border transition-colors hover:border-brand/30"
     >
-        <CollapsibleTrigger asChild>
-      <div className="flex items-center justify-between gap-4 px-4">
-        <p className="text-xl font-semibold">{question}</p>
-            <ChevronsUpDown />
-      </div>
-        </CollapsibleTrigger>
-      <CollapsibleContent className="flex flex-col gap-2">
-        <div>
-            <p className="text-lg px-4">{ans}</p>
-        </div>
+      <CollapsibleTrigger asChild>
+        <button className="flex items-center justify-between gap-4 w-full px-6 py-5 text-left cursor-pointer">
+          <p className="font-semibold text-foreground text-base md:text-lg">
+            {question}
+          </p>
+          <ChevronDown
+            className={`w-5 h-5 text-muted-foreground flex-shrink-0 transition-transform duration-200 ${
+              isOpen ? "rotate-180" : ""
+            }`}
+          />
+        </button>
+      </CollapsibleTrigger>
+      <CollapsibleContent>
+        <p className="px-6 pb-5 text-muted-foreground text-sm md:text-base leading-relaxed">
+          {ans}
+        </p>
       </CollapsibleContent>
     </Collapsible>
-  )
+  );
 }

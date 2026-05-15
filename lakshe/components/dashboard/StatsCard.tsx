@@ -1,22 +1,21 @@
 import React from "react";
-import { Save } from "lucide-react";
 
 interface CardProps {
   title: string;
-  icon: any;
+  icon: React.ReactNode;
   value: number;
 }
 
 function StatsCard({ title, icon, value }: CardProps) {
   return (
-    <div className="flex flex-col p-6 bg-card rounded-lg w-full justify-between">
-      <div className="flex justify-between text-gray-400">
-        <p>{title}</p>
-        {icon}
+    <div className="flex flex-col p-5 bg-card rounded-xl border border-border w-full justify-between gap-3 min-w-0">
+      <div className="flex justify-between items-center text-muted-foreground">
+        <p className="text-xs font-medium uppercase tracking-wide truncate pr-2">
+          {title}
+        </p>
+        <span className="flex-shrink-0 w-4 h-4">{icon}</span>
       </div>
-      <div>
-        <p className="text-white text-3xl font-bold">{value}</p>
-      </div>
+      <p className="text-foreground text-2xl md:text-3xl font-bold">{value}</p>
     </div>
   );
 }

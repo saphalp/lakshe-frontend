@@ -25,32 +25,53 @@ function truncateNotes(notes: string | null): string | null {
   return words.slice(0, NOTES_PREVIEW_WORDS).join(" ") + "…";
 }
 
-function DashboardJobCard({ userJobId, company, role, location, roleType, status, notes }: JobCardProps) {
+function DashboardJobCard({
+  userJobId,
+  company,
+  role,
+  location,
+  roleType,
+  status,
+  notes,
+}: JobCardProps) {
   const [notesOpen, setNotesOpen] = useState(false);
   const preview = truncateNotes(notes);
 
   return (
     <>
-      <div className="bg-card flex flex-col p-4 rounded-lg gap-3 justify-between">
-        <div className="flex flex-col gap-2">
-          <div className="flex justify-between items-start">
-            <p className="font-bold text-sm">{company}</p>
+      <div className="bg-card border border-border flex flex-col p-4 rounded-xl gap-3 justify-between hover:border-border/80 transition-colors">
+        <div className="flex flex-col gap-1.5">
+          <div className="flex justify-between items-start gap-2">
+            <p className="font-semibold text-foreground text-sm leading-snug">
+              {company}
+            </p>
             <JobDropdownMenu userJobId={userJobId} status={status} />
           </div>
-          <p className="text-sm text-muted">{role}</p>
-          {location && <p className="text-xs text-gray-400">{location}</p>}
+          <p className="text-xs text-muted-foreground">{role}</p>
+          {location && (
+            <p className="text-xs text-muted-foreground/70">{location}</p>
+          )}
           {preview && (
-            <p className="text-xs text-gray-500 italic leading-snug">{preview}</p>
+            <p className="text-xs text-muted-foreground/60 italic leading-snug line-clamp-2">
+              {preview}
+            </p>
           )}
         </div>
-        <div className="flex justify-between items-center">
-          {roleType && <Badge variant="default">{roleType}</Badge>}
+        <div className="flex justify-between items-center pt-1">
+          {roleType && (
+            <Badge
+              variant="secondary"
+              className="text-xs bg-secondary text-muted-foreground border-border"
+            >
+              {roleType}
+            </Badge>
+          )}
           <button
             onClick={() => setNotesOpen(true)}
-            className="ml-auto text-gray-400 hover:text-white transition-colors"
+            className="ml-auto text-muted-foreground hover:text-foreground transition-colors p-1 rounded"
             aria-label="Edit notes"
           >
-            <Pencil size={14} />
+            <Pencil size={13} />
           </button>
         </div>
       </div>

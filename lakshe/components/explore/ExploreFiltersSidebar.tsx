@@ -26,7 +26,10 @@ interface ExploreFiltersSidebarProps {
   onFiltersChange: (filters: ExploreFilters) => void;
 }
 
-function ExploreFiltersSidebar({ filters, onFiltersChange }: ExploreFiltersSidebarProps) {
+function ExploreFiltersSidebar({
+  filters,
+  onFiltersChange,
+}: ExploreFiltersSidebarProps) {
   const toggleRoleType = (type: string) => {
     const updated = filters.roleTypes.includes(type)
       ? filters.roleTypes.filter((t) => t !== type)
@@ -35,12 +38,7 @@ function ExploreFiltersSidebar({ filters, onFiltersChange }: ExploreFiltersSideb
   };
 
   const clearAll = () => {
-    onFiltersChange({
-      location: "",
-      roleTypes: [],
-      company: "",
-      platform: "",
-    });
+    onFiltersChange({ location: "", roleTypes: [], company: "", platform: "" });
   };
 
   const hasActiveFilters =
@@ -50,14 +48,17 @@ function ExploreFiltersSidebar({ filters, onFiltersChange }: ExploreFiltersSideb
     filters.platform;
 
   return (
-    <Sidebar collapsible="none" className="text-white py-4 pr-4 border-r border-gray-400 min-h-screen">
+    <Sidebar
+      collapsible="none"
+      className="py-4 pr-4 border-r border-border min-h-screen bg-background"
+    >
       <SidebarHeader className="px-4 pb-2">
         <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold">Filters</h2>
+          <h2 className="text-sm font-semibold text-foreground">Filters</h2>
           {hasActiveFilters && (
             <button
               onClick={clearAll}
-              className="text-xs text-gray-400 hover:text-white flex items-center gap-1 transition-colors"
+              className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors"
             >
               <X size={12} />
               Clear all
@@ -67,54 +68,58 @@ function ExploreFiltersSidebar({ filters, onFiltersChange }: ExploreFiltersSideb
       </SidebarHeader>
 
       <SidebarContent className="px-4 gap-0">
-        {/* Location */}
-        <SidebarGroup className="py-4 border-b border-gray-700">
-          <SidebarGroupLabel className="text-gray-400 text-xs uppercase tracking-wider mb-2 flex items-center gap-2 px-0">
-            <MapPin size={13} />
+        <SidebarGroup className="py-4 border-b border-border">
+          <SidebarGroupLabel className="text-muted-foreground text-xs uppercase tracking-wider mb-2 flex items-center gap-2 px-0">
+            <MapPin size={12} />
             Location
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <Input
               placeholder="City, state, or remote"
               value={filters.location}
-              onChange={(e) => onFiltersChange({ ...filters, location: e.target.value })}
-              className="bg-transparent border-gray-600 text-white placeholder:text-gray-500 focus-visible:ring-gray-500 text-sm"
+              onChange={(e) =>
+                onFiltersChange({ ...filters, location: e.target.value })
+              }
+              className="bg-transparent border-border text-foreground placeholder:text-muted-foreground/50 focus-visible:ring-primary/30 text-sm h-9"
             />
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* Company */}
-        <SidebarGroup className="py-4 border-b border-gray-700">
-          <SidebarGroupLabel className="text-gray-400 text-xs uppercase tracking-wider mb-2 flex items-center gap-2 px-0">
-            <Building2 size={13} />
+        <SidebarGroup className="py-4 border-b border-border">
+          <SidebarGroupLabel className="text-muted-foreground text-xs uppercase tracking-wider mb-2 flex items-center gap-2 px-0">
+            <Building2 size={12} />
             Company
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <Input
               placeholder="Company name"
               value={filters.company}
-              onChange={(e) => onFiltersChange({ ...filters, company: e.target.value })}
-              className="bg-transparent border-gray-600 text-white placeholder:text-gray-500 focus-visible:ring-gray-500 text-sm"
+              onChange={(e) =>
+                onFiltersChange({ ...filters, company: e.target.value })
+              }
+              className="bg-transparent border-border text-foreground placeholder:text-muted-foreground/50 focus-visible:ring-primary/30 text-sm h-9"
             />
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* Role Type */}
-        <SidebarGroup className="py-4 border-b border-gray-700">
-          <SidebarGroupLabel className="text-gray-400 text-xs uppercase tracking-wider mb-3 flex items-center gap-2 px-0">
-            <Briefcase size={13} />
+        <SidebarGroup className="py-4 border-b border-border">
+          <SidebarGroupLabel className="text-muted-foreground text-xs uppercase tracking-wider mb-3 flex items-center gap-2 px-0">
+            <Briefcase size={12} />
             Role Type
           </SidebarGroupLabel>
-          <SidebarGroupContent className="flex flex-col gap-2">
+          <SidebarGroupContent className="flex flex-col gap-2.5">
             {ROLE_TYPES.map((type) => (
-              <label key={type} className="flex items-center gap-2 cursor-pointer group">
+              <label
+                key={type}
+                className="flex items-center gap-2.5 cursor-pointer group"
+              >
                 <input
                   type="checkbox"
                   checked={filters.roleTypes.includes(type)}
                   onChange={() => toggleRoleType(type)}
-                  className="accent-indigo-500 w-4 h-4 cursor-pointer"
+                  className="accent-primary w-4 h-4 cursor-pointer rounded"
                 />
-                <span className="text-sm text-gray-300 group-hover:text-white transition-colors">
+                <span className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
                   {type}
                 </span>
               </label>
@@ -122,18 +127,19 @@ function ExploreFiltersSidebar({ filters, onFiltersChange }: ExploreFiltersSideb
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* Platform */}
         <SidebarGroup className="py-4">
-          <SidebarGroupLabel className="text-gray-400 text-xs uppercase tracking-wider mb-2 flex items-center gap-2 px-0">
-            <Globe size={13} />
+          <SidebarGroupLabel className="text-muted-foreground text-xs uppercase tracking-wider mb-2 flex items-center gap-2 px-0">
+            <Globe size={12} />
             Platform
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <Input
               placeholder="e.g. LinkedIn, Indeed"
               value={filters.platform}
-              onChange={(e) => onFiltersChange({ ...filters, platform: e.target.value })}
-              className="bg-transparent border-gray-600 text-white placeholder:text-gray-500 focus-visible:ring-gray-500 text-sm"
+              onChange={(e) =>
+                onFiltersChange({ ...filters, platform: e.target.value })
+              }
+              className="bg-transparent border-border text-foreground placeholder:text-muted-foreground/50 focus-visible:ring-primary/30 text-sm h-9"
             />
           </SidebarGroupContent>
         </SidebarGroup>

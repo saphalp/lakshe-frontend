@@ -34,7 +34,7 @@ function ProfileSidebar({ onSectionChange }: ProfileSidebarProps) {
   return (
     <Sidebar
       collapsible="none"
-      className="text-white py-4 pr-4 border-r border-gray-400"
+      className="py-4 pr-4 border-r border-border bg-background"
     >
       <SidebarHeader>
         <SidebarMenu>
@@ -44,7 +44,7 @@ function ProfileSidebar({ onSectionChange }: ProfileSidebarProps) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarMenu className="p-4 gap-4 text-gray-400">
+        <SidebarMenu className="p-4 gap-4 text-muted-foreground">
           <SidebarMenuButton data-value="personal-info" onClick={handleClick}>
             <User />
             Personal Info

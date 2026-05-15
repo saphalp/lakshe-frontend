@@ -1,23 +1,25 @@
-import React from 'react'
-import { Button } from '../ui/button'
+"use client";
 
+import { CinematicHero } from "@/components/ui/cinematic-landing-hero";
 
-function HeroBanner() {
+export default function HeroBanner() {
   return (
-    <div className='flex flex-col justify-center items-center gap-7 font-sans min-h-[500px] mt-10 py-10 px-4'>
-        <div className='flex flex-col items-center text-5xl md:text-6xl lg:text-7xl gap-2 font-extrabold text-center'>
-        <p className='text-white'>Land your dream job - </p>
-        <p className='bg-gradient-to-r from-blue-500 to-emerald-400 bg-clip-text text-transparent'> faster than ever. </p>
-        </div>
-        <p className='text-lg text-[oklch(55.4%_0.046_257.417)] text-center w-full max-w-2xl px-4'>Accelerate your career with AI-powered resume building, interview
-        prep, and personalized job matching that skips the noise and gets
-        results.</p>
-        <div className='flex flex-col sm:flex-row gap-5 mt-4'>
-            <Button variant={'default'} size={'lg'} className="px-10">Get Started</Button>
-            <Button variant={'outline'} size={'lg'} className="px-10">Watch Demo</Button>
-        </div>
-    </div>
-  )
+    <CinematicHero
+      brandName="Lakshe"
+      tagline1="Land your dream job —"
+      tagline2="faster than ever."
+      cardHeading="Your AI career engine."
+      cardDescription={
+        <>
+          <span className="text-white font-semibold">Lakshe</span> scrapes
+          jobs from LinkedIn, Indeed, and Glassdoor — then generates tailored,
+          ATS-beating resumes and tracks every application in one workspace.
+        </>
+      }
+      metricValue={50}
+      metricLabel="Jobs Matched"
+      ctaHeading="Start landing interviews."
+      ctaDescription="Join job seekers using Lakshe to apply smarter, track better, and land faster. Free plan — no card required."
+    />
+  );
 }
-
-export default HeroBanner

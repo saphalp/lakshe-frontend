@@ -77,7 +77,7 @@ function LoginForm() {
                 </Label>
                 <a
                   href="#"
-                  className="ml-auto inline-block text-xs font-bold underline-offset-4 text-indigo-700"
+                  className="ml-auto inline-block text-xs font-bold underline-offset-4 text-primary hover:text-primary/80 transition-colors"
                 >
                   FORGOT PASSWORD?
                 </a>
@@ -104,7 +104,7 @@ function LoginForm() {
         <p className="text-gray-400 text-xs font-bold mt-2">
           {" "}
           DONT'T HAVE AN ACCOUNT?{" "}
-          <a href="/sign-up" className="text-indigo-700">
+          <a href="/sign-up" className="text-primary hover:text-primary/80 transition-colors">
             CREATE ONE
           </a>
         </p>

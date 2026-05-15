@@ -1,13 +1,15 @@
 import React from "react";
 
 interface headerProps {
-  header: String;
+  header: string;
 }
 
 function AppTrackerHeader({ header }: headerProps) {
   return (
-    <div className="bg-card p-2 rounded-sm">
-      <p className="text-gray-400 text-sm">{header}</p>
+    <div className="bg-secondary rounded-md px-3 py-2">
+      <p className="text-muted-foreground text-xs font-semibold uppercase tracking-wide">
+        {header}
+      </p>
     </div>
   );
 }

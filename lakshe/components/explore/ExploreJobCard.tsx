@@ -3,7 +3,15 @@
 import React, { useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MapPin, DollarSign, Building2, Users, Globe, FileText, Bookmark } from "lucide-react";
+import {
+  MapPin,
+  DollarSign,
+  Building2,
+  Users,
+  Globe,
+  FileText,
+  Bookmark,
+} from "lucide-react";
 import { getSupabaseBrowserClient } from "@/lib/supabase/browser-client";
 import { useRouter } from "next/navigation";
 
@@ -31,10 +39,14 @@ interface ExploreJobCardProps {
 
 function formatSalary(raw: string): string | null {
   if (!raw) return null;
-  const parts = raw.replace(/^\[|\]$/g, "").split(",").map((p) => p.replace(/['"]/g, "").trim()).filter(Boolean);
+  const parts = raw
+    .replace(/^\[|\]$/g, "")
+    .split(",")
+    .map((p) => p.replace(/['"]/g, "").trim())
+    .filter(Boolean);
   if (parts.length === 0) return null;
   const [currency, min, max] = parts;
-  if (min && max) return `${currency} ${min} - ${max}`;
+  if (min && max) return `${currency} ${min} – ${max}`;
   return parts.join(" ");
 }
 
@@ -67,18 +79,18 @@ function ExploreJobCard({ job, profileId }: ExploreJobCardProps) {
   };
 
   return (
-    <div className="border border-gray-700 rounded-xl p-5 hover:border-gray-500 transition-all bg-transparent group cursor-pointer">
+    <div className="border border-border rounded-xl p-5 bg-card hover:border-brand/40 transition-all group cursor-pointer">
       <div className="flex items-start justify-between gap-4">
-        <div className="flex items-start gap-4 flex-1 min-w-0">
-          <div className="w-11 h-11 rounded-lg bg-gray-700 flex items-center justify-center flex-shrink-0 text-xs font-bold text-gray-300">
+        <div className="flex items-start gap-3 flex-1 min-w-0">
+          <div className="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center flex-shrink-0 text-xs font-bold text-muted-foreground">
             {job.company.slice(0, 2).toUpperCase()}
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-white text-base group-hover:text-indigo-300 transition-colors truncate">
+            <h3 className="font-semibold text-foreground text-sm md:text-base group-hover:text-primary transition-colors truncate">
               {job.jobTitle}
             </h3>
-            <p className="text-sm text-gray-400 flex items-center gap-1 mt-0.5">
-              <Building2 size={13} />
+            <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
+              <Building2 size={12} />
               {job.company}
             </p>
           </div>
@@ -86,12 +98,12 @@ function ExploreJobCard({ job, profileId }: ExploreJobCardProps) {
 
         <div className="flex items-center gap-2 flex-shrink-0">
           {job.roleType && (
-            <Badge className="text-xs bg-gray-800 text-gray-400 border border-gray-600 font-normal">
+            <Badge className="text-xs bg-secondary text-muted-foreground border-border font-normal hidden sm:flex">
               {job.roleType}
             </Badge>
           )}
           {job.platform && (
-            <Badge className="text-xs bg-gray-800 text-gray-400 border border-gray-600 font-normal">
+            <Badge className="text-xs bg-secondary text-muted-foreground border-border font-normal hidden md:flex">
               <Globe size={10} className="mr-1" />
               {job.platform}
             </Badge>
@@ -99,49 +111,49 @@ function ExploreJobCard({ job, profileId }: ExploreJobCardProps) {
           <button
             onClick={handleBookmark}
             disabled={saving || !profileId}
-            className="ml-1 text-gray-500 hover:text-white transition-colors disabled:opacity-40"
+            className="ml-1 text-muted-foreground hover:text-foreground transition-colors disabled:opacity-40 p-1"
             aria-label={saved ? "Unsave job" : "Save job"}
           >
             <Bookmark
-              size={17}
-              className={saved ? "fill-indigo-400 text-indigo-400" : ""}
+              size={16}
+              className={saved ? "fill-primary text-primary" : ""}
             />
           </button>
         </div>
       </div>
 
       {job.description && (
-        <p className="text-sm text-gray-400 mt-3 line-clamp-2 leading-relaxed">
+        <p className="text-xs text-muted-foreground mt-3 line-clamp-2 leading-relaxed">
           {job.description}
         </p>
       )}
 
-      <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 mt-4 text-xs text-gray-400">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 mt-4 text-xs text-muted-foreground">
         {job.location && (
           <span className="flex items-center gap-1">
-            <MapPin size={12} />
+            <MapPin size={11} />
             {job.location}
           </span>
         )}
         {formattedSalary && (
           <span className="flex items-center gap-1">
-            <DollarSign size={12} />
+            <DollarSign size={11} />
             {formattedSalary}
           </span>
         )}
-{job.applicantCount && (
+        {job.applicantCount && (
           <span className="flex items-center gap-1">
-            <Users size={12} />
+            <Users size={11} />
             {job.applicantCount} applicants
           </span>
         )}
       </div>
 
-      <div className="flex items-center justify-end gap-2 mt-5 pt-4 border-t border-gray-700">
+      <div className="flex items-center justify-end gap-2 mt-4 pt-4 border-t border-border">
         <Button
-          size="default"
+          size="sm"
           variant="outline"
-          className="text-xs h-8 px-3 border-gray-600 text-gray-300 bg-transparent hover:bg-gray-800 hover:text-white whitespace-nowrap"
+          className="text-xs h-8 px-3 border-border text-muted-foreground bg-transparent hover:bg-secondary hover:text-foreground"
           onClick={(e) => {
             e.stopPropagation();
             router.push(
@@ -154,7 +166,7 @@ function ExploreJobCard({ job, profileId }: ExploreJobCardProps) {
         </Button>
         <Button
           size="sm"
-          className="text-xs h-8 px-4 bg-indigo-600 hover:bg-indigo-700 border-0"
+          className="text-xs h-8 px-4"
           onClick={(e) => {
             e.stopPropagation();
             const link = job.applyLink || job.jobUrl;

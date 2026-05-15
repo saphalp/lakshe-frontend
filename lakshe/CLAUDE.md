@@ -32,8 +32,11 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
 | `/` | Landing page (marketing) |
 | `/login` | Login form |
 | `/sign-up` | Multi-step onboarding (4 steps: Account → Education → Skills → Experience) |
+| `/verify-email` | Post-signup email verification prompt |
 | `/dashboard` | Main user dashboard with job tracking |
-| `/profile` | Profile editor (Personal Info / Work Experience / Education sections) |
+| `/profile` | Profile editor (Personal Info / Work Experience / Education / Skills sections) |
+| `/explore-jobs` | Job board with search, filters, and pagination (client component, fetches `jobs_listings` table) |
+| `/resume-builder` | AI-powered resume builder; accepts `?jobId=`, `?jobTitle=`, `?company=` query params |
 
 ### Supabase Client Pattern
 
@@ -45,12 +48,38 @@ Two separate clients must be used correctly:
 
 - `context/FormContext.tsx` — `FormProvider` / `useFormData()`: holds multi-step sign-up form state (email, password, education[], experiences[], skills[])
 - `context/StepContext.tsx` — `StepProvider` / `useStep()`: tracks current step (1–4) in the sign-up flow; wraps the `/sign-up` layout
+- `context/ProfileUserContext.tsx` — `ProfileUserProvider` / `useProfileUser()`: wraps the `/profile` layout, exposes `{ userId, loading }` via `useFetchUser`
+
+### Hooks
+
+- `hooks/useFetchUser.ts` — `useFetchUser()`: browser-side hook that reads `supabase.auth.getSession()` and returns `{ userId, loading }`
 
 ### Component Organization
 
-- `components/ui/` — shadcn/ui primitives plus marketing/landing components (HeroBanner, Navbar, Footer, PricingSection, etc.)
-- `components/dashboard/` — dashboard-specific components (DashBoardNav, GreetingCard, StatsCard, ApplicationTracker, etc.)
-- `components/profile/` — profile editor sections (PersonalInfoSection/Form, ExperienceSection/DisplayCard, EducationSection/DisplayCard, SectionHeader, ProfileSidebar)
+- `components/ui/` — shadcn/ui primitives (Button, Input, Dialog, Sheet, etc.)
+- `components/landing/` — marketing page components (HeroBanner, Navbar, PricingSection, FAQ, etc.)
+- `components/shared/` — shared layout components (Footer)
+- `components/dashboard/` — dashboard-specific components (DashBoardNav, GreetingCard, StatsCard, ApplicationTracker, DashboardJobCard, NotesModal, etc.)
+- `components/profile/` — profile editor sections (PersonalInfoSection/Form, ExperienceSection/DisplayCard, EducationSection/DisplayCard, ProfileSkillsForm, ProfileSidebar, SidebarProgressChart)
+- `components/explore/` — job exploration components (ExploreJobCard, ExploreFiltersSidebar)
+- `components/resume/` — resume builder components (ResumeBuilderLayout, ResumePreview, editor sub-components, types.ts, mockData.ts)
+- `components/sign-up/` — multi-step sign-up form steps (SignInForm, EducationForm, ExperienceForm, SkillsForm, Stepper)
+- `components/login/` — LoginForm
+
+### Resume Builder Flow
+
+1. Server page (`app/resume-builder/page.tsx`) fetches the user's profile and the target job listing from Supabase, then passes them to `ResumeBuilderClient` (a thin `"use client"` wrapper that lazy-loads `ResumeBuilderLayout` with `ssr: false`).
+2. On mount, `ResumeBuilderLayout` checks the `resumes` table for an existing record for `(userId, jobId)`. If none exists (or the last attempt failed), it POSTs to an n8n webhook (`WEBHOOK_URL` in `ResumeBuilderLayout.tsx`) to trigger AI generation.
+3. A Supabase Realtime channel (`resume-{userId}-{jobId}`) watches the `resumes` table for status changes (`pending` → `processing` → `done` / `failed`) and updates the UI accordingly.
+4. Once `status === "done"`, the two-panel editor appears: left panel edits experience/education/skills; right panel renders a live `ResumePreview`.
+5. Download uses `html-to-image` (PNG) + `jspdf` to produce a multi-page A4 PDF client-side.
+
+### Supabase Tables (key ones)
+
+- `profiles` — user profile data (`f_name`, `l_name`, `email`, `phone`, `headline`, `linkedin_url`, `github_url`, `skills[]`, `experiences[]`, `education[]`)
+- `user_jobs` — tracks a user's job applications (`profile_id`, `job_id`, `status`, `notes`); status values: `saved`, `applied`, `interview`
+- `jobs_listings` — scraped job postings (`job_title`, `company`, `location`, `role_type`, `description`, `salary`, `platform`, `apply_link`, `job_url`, etc.)
+- `resumes` — AI-generated resume records (`user_id`, `job_id`, `status`, `data` JSON)
 
 ### Styling
 

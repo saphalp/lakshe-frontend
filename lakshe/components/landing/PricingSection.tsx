@@ -3,26 +3,28 @@ import PricingCard from "./PricingCard";
 
 const pricingOptions = [
   {
-    plan: "Basic",
+    plan: "Free",
     feature: false,
-    description: "Perfect to try out the features",
+    description: "Start your search with the essential tools",
     price: "0",
     includes: [
-      "3 AI resumes per month",
+      "3 AI-tailored resumes per month",
       "Basic job matching",
-      "3 Interview preps per week",
+      "3 interview prep sessions per week",
+      "Application tracker (up to 20 jobs)",
     ],
     active: true,
   },
   {
     plan: "Pro",
     feature: true,
-    description: "Perfect to try out the features",
+    description: "Everything you need to dominate the market",
     price: "9.99",
     includes: [
-      "Unlimited AI resumes",
-      "Advanced job matching",
-      "Unlimited Interview preps",
+      "Unlimited AI-tailored resumes",
+      "Advanced job matching & alerts",
+      "Unlimited interview prep",
+      "Full application tracker",
     ],
     active: false,
   },
@@ -30,18 +32,20 @@ const pricingOptions = [
 
 function PricingSection() {
   return (
-    <div className="font-sans mt-20 lg:mt-40 px-4 md:px-8">
-      <div className="text-center text-white" id="pricing">
-        <p className="text-4xl font-extrabold">Simple, transparent pricing</p>
-        <p className="text-lg mt-3 text-[oklch(55.4%_0.046_257.417)] max-w-xl mx-auto">
-          Affordable plans built to support your career growth without the
-          hassle.
+    <section className="mt-20 lg:mt-40 px-4 md:px-8" id="pricing">
+      <div className="text-center">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">
+          Simple, transparent pricing
+        </h2>
+        <p className="text-base md:text-lg mt-3 text-muted-foreground max-w-xl mx-auto">
+          Start free and upgrade when you're ready. No hidden fees, no
+          lock-ins.
         </p>
       </div>
-      <div className="flex flex-col sm:flex-row justify-center items-center sm:items-stretch gap-10 mt-10">
-        {pricingOptions.map((item, index) => (
+      <div className="flex flex-col sm:flex-row justify-center items-stretch gap-6 mt-12 max-w-2xl mx-auto">
+        {pricingOptions.map((item) => (
           <PricingCard
-            key={index}
+            key={item.plan}
             plan={item.plan}
             price={item.price}
             description={item.description}
@@ -51,7 +55,7 @@ function PricingSection() {
           />
         ))}
       </div>
-    </div>
+    </section>
   );
 }
 

@@ -7,12 +7,12 @@ function page() {
     <div className="flex flex-col justify-center items-center font-sans gap-5 h-screen">
       <div className="flex flex-col gap-1 items-center">
         <Link href="/">
-          <p className="text-3xl text-center text-indigo-700 font-extrabold">
-            Lakshe.co
+          <p className="text-3xl text-center text-primary font-extrabold">
+            Lakshe
           </p>
         </Link>
-        <p className="text-gray-400 font-bold text-xs">
-          CELESTIAL CAREER ACCELERATION
+        <p className="text-muted-foreground font-medium text-xs tracking-widest uppercase">
+          AI Job Accelerator
         </p>
       </div>
       <LoginForm />

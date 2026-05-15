@@ -1,24 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter, Bentham } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/shared/Footer";
 
-const inter = Inter({
-  variable: "--font-inter",
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
-});
-
-const bentham = Bentham({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-bentham",
+  weight: ["300", "400", "500", "600", "700", "800"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Lakshe.co",
-  description: "",
+  title: "Lakshe — AI Job Application Accelerator",
+  description:
+    "Land your dream job faster with AI-powered resume building, smart job matching, and application tracking all in one place.",
 };
 
 export default function RootLayout({
@@ -27,11 +22,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth">
-      <body
-        className={`${inter.variable} ${bentham.variable} antialiased font-sans`}
-      >
-        {/* <Navbar/> */}
+    <html lang="en">
+      <body className={`${plusJakartaSans.variable} antialiased font-sans`}>
         {children}
         <Footer />
       </body>

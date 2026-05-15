@@ -27,7 +27,9 @@ export default async function Dashboard() {
     profile
       ? supabase
           .from("user_jobs")
-          .select("id, status, job_id, notes, jobs_listings(job_title, company, location, role_type)")
+          .select(
+            "id, status, job_id, notes, jobs_listings(job_title, company, location, role_type)"
+          )
           .eq("profile_id", profile.id)
       : Promise.resolve({ data: [] }),
 
@@ -41,15 +43,15 @@ export default async function Dashboard() {
   const jobs = userJobs ?? [];
 
   const stats = {
-    saved:             jobs.filter((j: any) => j.status === "saved").length,
-    applied:           jobs.filter((j: any) => j.status === "applied").length,
-    interviews:        jobs.filter((j: any) => j.status === "interview").length,
-    resumesGenerated:  resumeCount ?? 0,
+    saved: jobs.filter((j: any) => j.status === "saved").length,
+    applied: jobs.filter((j: any) => j.status === "applied").length,
+    interviews: jobs.filter((j: any) => j.status === "interview").length,
+    resumesGenerated: resumeCount ?? 0,
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-40 my-15">
-      <div className="col-span-4 text-white flex flex-col gap-6">
+    <div className="px-4 md:px-8 lg:px-12 py-8">
+      <div className="max-w-7xl mx-auto flex flex-col gap-8">
         <GreetingCard />
         <StatsSection {...stats} />
         <ApplicationTracker userJobs={jobs as any} />

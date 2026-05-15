@@ -115,23 +115,27 @@ export default function ExploreJobsPage() {
 
   return (
     <SidebarProvider>
-      <div className="flex w-full px-40">
+      <div className="flex w-full">
         <ExploreFiltersSidebar filters={filters} onFiltersChange={setFilters} />
 
-        <main className="flex-1 min-w-0 p-10 text-white">
+        <main className="flex-1 min-w-0 px-4 md:px-8 py-8">
           <div className="mb-8">
-            <h1 className="text-2xl font-semibold mb-1">Explore Jobs</h1>
-            <p className="text-gray-400 text-sm mb-5">Find your next opportunity</p>
+            <h1 className="text-xl md:text-2xl font-semibold text-foreground mb-1">
+              Explore Jobs
+            </h1>
+            <p className="text-muted-foreground text-sm mb-5">
+              Find your next opportunity
+            </p>
             <div className="relative">
               <Search
-                size={16}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                size={15}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
               />
               <Input
                 placeholder="Search by title, company, or description..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9 bg-transparent border-gray-600 text-white placeholder:text-gray-500 focus-visible:ring-gray-500"
+                className="pl-9 bg-transparent border-border text-foreground placeholder:text-muted-foreground/50 focus-visible:ring-primary/30"
               />
             </div>
           </div>
@@ -139,20 +143,20 @@ export default function ExploreJobsPage() {
           {loading ? (
             <div className="flex flex-col gap-4">
               {Array.from({ length: 4 }).map((_, i) => (
-                <Skeleton key={i} className="h-44 w-full rounded-xl bg-gray-800" />
+                <Skeleton key={i} className="h-44 w-full rounded-xl bg-secondary" />
               ))}
             </div>
           ) : error ? (
             <div className="flex flex-col items-center justify-center py-24 text-center">
-              <p className="text-red-400 text-base">{error}</p>
+              <p className="text-destructive text-base">{error}</p>
             </div>
           ) : (
             <>
               <div className="flex items-center justify-between mb-5">
-                <p className="text-sm text-gray-400">
+                <p className="text-sm text-muted-foreground">
                   {filteredJobs.length} job{filteredJobs.length !== 1 ? "s" : ""} found
                 </p>
-                <div className="flex items-center gap-2 text-xs text-gray-400">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <SlidersHorizontal size={13} />
                   Most recent
                 </div>
@@ -167,21 +171,21 @@ export default function ExploreJobsPage() {
                   </div>
 
                   {totalPages > 1 && (
-                    <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-700">
-                      <p className="text-xs text-gray-500">
+                    <div className="flex items-center justify-between mt-8 pt-6 border-t border-border">
+                      <p className="text-xs text-muted-foreground hidden sm:block">
                         Page {currentPage} of {totalPages} &mdash; showing{" "}
                         {(currentPage - 1) * PAGE_SIZE + 1}–
                         {Math.min(currentPage * PAGE_SIZE, filteredJobs.length)} of{" "}
                         {filteredJobs.length}
                       </p>
 
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-1 mx-auto sm:mx-0">
                         <Button
                           variant="outline"
                           size="sm"
                           disabled={currentPage === 1}
                           onClick={() => setCurrentPage((p) => p - 1)}
-                          className="h-8 w-8 p-0 border-gray-600 text-gray-300 bg-transparent hover:bg-gray-800 disabled:opacity-30"
+                          className="h-8 w-8 p-0 border-border text-muted-foreground bg-transparent hover:bg-secondary disabled:opacity-30"
                         >
                           <ChevronLeft size={14} />
                         </Button>
@@ -202,7 +206,10 @@ export default function ExploreJobsPage() {
                           }, [])
                           .map((item, idx) =>
                             item === "..." ? (
-                              <span key={`ellipsis-${idx}`} className="px-1 text-xs text-gray-500">
+                              <span
+                                key={`ellipsis-${idx}`}
+                                className="px-1 text-xs text-muted-foreground"
+                              >
                                 …
                               </span>
                             ) : (
@@ -211,10 +218,10 @@ export default function ExploreJobsPage() {
                                 variant="outline"
                                 size="sm"
                                 onClick={() => setCurrentPage(item as number)}
-                                className={`h-8 w-8 p-0 text-xs border-gray-600 bg-transparent ${
+                                className={`h-8 w-8 p-0 text-xs border-border bg-transparent ${
                                   currentPage === item
-                                    ? "text-white border-indigo-500 bg-indigo-600 hover:bg-indigo-700"
-                                    : "text-gray-300 hover:bg-gray-800"
+                                    ? "text-primary-foreground border-primary bg-primary hover:bg-primary/90"
+                                    : "text-muted-foreground hover:bg-secondary"
                                 }`}
                               >
                                 {item}
@@ -227,7 +234,7 @@ export default function ExploreJobsPage() {
                           size="sm"
                           disabled={currentPage === totalPages}
                           onClick={() => setCurrentPage((p) => p + 1)}
-                          className="h-8 w-8 p-0 border-gray-600 text-gray-300 bg-transparent hover:bg-gray-800 disabled:opacity-30"
+                          className="h-8 w-8 p-0 border-border text-muted-foreground bg-transparent hover:bg-secondary disabled:opacity-30"
                         >
                           <ChevronRight size={14} />
                         </Button>
@@ -237,8 +244,10 @@ export default function ExploreJobsPage() {
                 </>
               ) : (
                 <div className="flex flex-col items-center justify-center py-24 text-center">
-                  <p className="text-gray-400 text-base">No jobs match your filters.</p>
-                  <p className="text-gray-500 text-sm mt-1">
+                  <p className="text-muted-foreground text-base">
+                    No jobs match your filters.
+                  </p>
+                  <p className="text-muted-foreground/60 text-sm mt-1">
                     Try adjusting your search or clearing some filters.
                   </p>
                 </div>

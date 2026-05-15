@@ -5,27 +5,28 @@ import Link from "next/link";
 
 function GreetingCard() {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
       <div>
-        <p className="text-4xl font-extrabold">Welcome, Saphal</p>
-        <p className="text-md text-gray-400 my-2">
-          {" "}
-          You have <span className="text-indigo-700">
-            3 new job matches
-          </span>{" "}
-          based on your profile
+        <h1 className="text-2xl md:text-3xl font-extrabold text-foreground">
+          Welcome back, Saphal
+        </h1>
+        <p className="text-sm text-muted-foreground mt-1">
+          You have{" "}
+          <span className="text-primary font-medium">3 new job matches</span>{" "}
+          based on your profile.
         </p>
       </div>
-      <div className="flex gap-3">
-        <Link href='/explore-jobs'>
-        <Button className="p-5">
-          <Search />
-          Find Jobs
-        </Button></Link>
+      <div className="flex gap-3 flex-shrink-0">
+        <Link href="/explore-jobs">
+          <Button className="gap-2">
+            <Search className="w-4 h-4" />
+            Find Jobs
+          </Button>
+        </Link>
         <Link href="/profile">
-          <Button variant="outline" className="p-5 bg-transparent">
-            <Pencil />
-            Update Profile
+          <Button variant="outline" className="gap-2 border-border bg-transparent hover:bg-secondary">
+            <Pencil className="w-4 h-4" />
+            <span className="hidden sm:inline">Update Profile</span>
           </Button>
         </Link>
       </div>
